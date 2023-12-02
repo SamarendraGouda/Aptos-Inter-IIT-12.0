@@ -1,0 +1,57 @@
+.navbar {
+  color: #ffffff;
+  background: #191b35;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 120px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.navListLeft {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+}
+
+.navListRight {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.navItem {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.navItem a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.wallet {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+  cursor: pointer;
+}

@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  border-radius: 4px;
+  width: 100%;
+  height: auto;
+}
+
+.sectionLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 60%;
+  padding-left: 120px;
+  margin-top: 24px;
+}
+
+.sectionRight {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 40%;
+}

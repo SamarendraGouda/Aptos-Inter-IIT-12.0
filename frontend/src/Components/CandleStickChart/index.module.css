@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  border-radius: 4px;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+
+.chart {
+  background-color: "#191b35";
+}

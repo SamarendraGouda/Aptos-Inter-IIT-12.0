@@ -1,0 +1,45 @@
+.topCard {
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  width: 505px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+.topCardTitle {
+  background: url(./../../Assets/rect.svg) no-repeat;
+  height: 60%;
+  width: inherit;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  /* font-family: Inter Tight; */
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  color: #fff;
+  padding-left: 24px;
+}
+
+.topCardTitle img {
+  height: 40px;
+  width: 40px;
+}
+
+.topCardValue {
+  background: #16182e;
+  width: inherit;
+  height: 40%;
+  padding: 20px 0px;
+}
+
+.valueRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 24px;
+  color: #a9a9b0;
+  margin-top: 10px;
+}

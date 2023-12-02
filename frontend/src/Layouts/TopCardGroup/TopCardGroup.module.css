@@ -1,0 +1,8 @@
+.cardGroup {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 36px 120px;
+  padding: 0;
+}
