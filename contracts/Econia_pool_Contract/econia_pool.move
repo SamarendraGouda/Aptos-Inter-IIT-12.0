@@ -76,7 +76,7 @@ module econia_pool_addr::econia_pool{
 
     // changed_price_transfer with profit and loss cut
 
-    entrt fun changed_price_transfer_with_profit_loss_cut(sender :&signer , to : address , margin : u64 , assets_sold : u64 , total_assets : u64 , market_price_of_asset : u64, leverage : u64){
+    entry fun changed_price_transfer_with_profit_loss_cut(sender :&signer , to : address , margin : u64 , assets_sold : u64 , total_assets : u64 , market_price_of_asset : u64, leverage : u64){
         let num = margin*assets_sold;
         let den = total_assets;
         let amt_to_return = num/den;
@@ -95,8 +95,8 @@ module econia_pool_addr::econia_pool{
     }
 
 
-    entry fun takes_price_from_user(sender :&signer , from:address , amt : u64){
-        coin::transfer<Coin<X>>(from,econia_pool_addr,amt);
+    entry fun take_fee(sender :&signer , from:address , fee : u64){
+        coin::transfer<Coin<X>>(from,econia_pool_addr,fee);
        // coin::withdraw(from,amt);
     }
 
