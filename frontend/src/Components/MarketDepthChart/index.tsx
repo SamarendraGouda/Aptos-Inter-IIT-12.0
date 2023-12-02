@@ -1,42 +1,64 @@
-import React, { useState } from "react";
-import { Chart } from "react-chartjs-2";
+import React from "react";
+import styles from "./index.module.css";
 
-const DepthChart = () => {
-  const [chartData, setChartData] = useState({
-    labels: ["40,133", "40,133", "40,133", "...", "40,133"],
-    datasets: [
-      {
-        label: "Size",
-        data: [0.4273, 0.4273, 0.4273, 0.4273, 0.4273],
-        backgroundColor: "rgba(0, 0, 255, 0.2)",
-      },
-      {
-        label: "Sum",
-        data: [48.958, 48.958, 48.958, 48.958, 48.958],
-        backgroundColor: "rgba(255, 0, 0, 0.2)",
-      },
-    ],
-  });
-
-  const options = {
-    legend: {
-      display: true,
-    },
-    scales: {
-      xAxis: {
-        title: "Price",
-      },
-      yAxis: {
-        title: "Size",
-      },
-    },
-  };
+const MarketDepthChart = () => {
+  const data = [1, 2, 3, 4, 5];
+  const bid = [5, 4, 3, 2, 1];
+  const ask = [1, 2, 3, 4, 6];
+  const max = Math.max(...bid, ...ask);
+  const bidWidth = bid.map((item) => (item / max) * 100);
+  const askWidth = ask.map((item) => (item / max) * 100);
 
   return (
-    <div>
-      <Chart type="bar" data={chartData} />
+    <div className={styles.container}>
+      <div className={styles.title}>Market Depth</div>
+      <div className={styles.legend}>
+        <p>Price</p>
+        <p>Size</p>
+        <p>Amount</p>
+      </div>
+      <div className={styles.chart}>
+        <div className={styles.chartRow}>
+          {data.map((item, index) => {
+            const styling = {
+              "--calculated-width": `${bidWidth[index]}%`,
+            };
+            return (
+              <div
+                className={`${styles.chartRowItem} ${styles.chartRowItemAsk}`}
+                // @ts-ignore
+                style={styling}
+              >
+                <div className={styles.chartRowItemPrice}>$38,000</div>
+                <div className={styles.chartRowItemSize}>0.1</div>
+                <div className={styles.chartRowItemAmount}>$3,800</div>
+              </div>
+            );
+          })}
+          <div className={styles.currentPriceRow}>
+            <div className={styles.currentPrice}>$38,000</div>
+            <div className={styles.currentPriceSize}>0.1</div>
+          </div>
+          {data.map((item, index) => {
+            const styling = {
+              "--calculated-width": `${askWidth[index]}%`,
+            };
+            return (
+              <div
+                className={`${styles.chartRowItem} ${styles.chartRowItemBid}`}
+                // @ts-ignore
+                style={styling}
+              >
+                <div className={styles.chartRowItemPrice}>$38,000</div>
+                <div className={styles.chartRowItemSize}>0.1</div>
+                <div className={styles.chartRowItemAmount}>$3,800</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };
 
-export default DepthChart;
+export default MarketDepthChart;

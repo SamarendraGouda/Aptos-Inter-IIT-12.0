@@ -1,0 +1,86 @@
+.container {
+  display: flex;
+  width: 280px;
+  padding: 12px 16px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 12px;
+  background: #16182e;
+  color: #ffffff;
+}
+
+.legend {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.chart {
+  width: 100%;
+}
+
+.chartRow {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.chartRowItem {
+  height: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+.chartRowItemAsk {
+  position: relative;
+}
+
+.chartRowItemAsk:after {
+  position: absolute;
+  content: "";
+  width: var(--calculated-width);
+  height: 25px;
+  opacity: 1;
+  background: #fa3c583d;
+  right: 0;
+}
+
+.chartRowItemBid {
+  position: relative;
+}
+
+.chartRowItemBid:after {
+  position: absolute;
+  content: "";
+  width: var(--calculated-width);
+  height: 25px;
+  opacity: 1;
+  background: #0ecc833d;
+  right: 0;
+}
+
+.currentPriceRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  opacity: 0.7;
+  padding: 16px;
+}
