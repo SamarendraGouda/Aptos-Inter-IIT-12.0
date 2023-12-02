@@ -1,0 +1,17 @@
+[package]
+name = "amm"
+version = "1.0.0"
+authors = []
+
+[addresses]
+amm_addr='0xeb64cd6da77573cfdbbb0c9f492e8763ef535db5586b93e9f7bc8a3329dc1c5a'
+[dev-addresses]
+
+[dependencies.AptosFramework]
+git = "https://github.com/aptos-labs/aptos-core.git"
+rev = "mainnet"
+subdir = "aptos-move/framework/aptos-framework"
+
+[dev-dependencies]
+
+

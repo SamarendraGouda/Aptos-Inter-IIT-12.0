@@ -1,0 +1,16 @@
+[package]
+name = "futures_contract"
+version = "1.0.0"
+authors = []
+
+[addresses]
+futures_addr = '0x32d6c7c933f397f46583a5cd78d4d266aff0956aac97956cf9722015c630cfdd'
+
+[dev-addresses]
+
+[dependencies.AptosFramework]
+git = "https://github.com/aptos-labs/aptos-core.git"
+rev = "mainnet"
+subdir = "aptos-move/framework/aptos-framework"
+
+[dev-dependencies]
