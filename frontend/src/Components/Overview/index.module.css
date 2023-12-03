@@ -67,9 +67,9 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  width: 60%;
+  width: 100%;
   height: 100%;
-  padding: 0 44px;
+  padding: 0 0 0 44px;
 }
 
 .chartInfoItem {
@@ -113,6 +113,7 @@
   align-items: center;
   width: 100%;
   gap: 20px;
+  font-size: 14px;
 }
 
 .legendColor1 {
@@ -156,7 +157,6 @@
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
-  gap: 24px;
 }
 
 .usdcBalance {
@@ -167,7 +167,11 @@
   width: 100%;
   gap: 24px;
   color: #ffffff;
-  padding: 20px 20px;
+  padding: 12px 20px;
+  background: #242944;
+  border-radius: 12px;
+  cursor: pointer;
+  margin: 12px;
 }
 
 .aptBalance {
@@ -178,13 +182,30 @@
   width: 100%;
   gap: 24px;
   color: #ffffff;
-  padding: 20px 20px;
+  padding: 12px 20px;
+  margin: 12px;
+}
+
+.aptBalance:hover {
+  background: #242944;
+  border-radius: 12px;
+  cursor: pointer;
 }
 
 .name {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
   font-size: 20px;
   font-style: normal;
   font-weight: 500;
+  gap: 10px;
+}
+
+.name img {
+  width: 16px;
+  height: 16px;
 }
 
 .balances {
@@ -254,7 +275,7 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
-  background: #242944;
+  background: #101124;
   border-radius: 4px;
   border: 2.4px solid var(--button-secondary, #242944);
   color: var(--text-body, #fff);
@@ -264,10 +285,19 @@
   font-weight: 500;
 }
 
+.buttonGroup button:hover {
+  background: var(--button-secondary, #242944);
+  border-radius: 4px;
+  border: 2.4px solid var(--button-secondary, #242944);
+  color: var(--text-body, #fff);
+  cursor: pointer;
+}
+
 .accountTitle {
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
+  opacity: 0.7;
 }
 
 .accountItemValue {
@@ -294,7 +324,7 @@
   width: 100%;
   gap: 24px;
   color: #ffffff;
-  padding: 16px 20px;
+  padding: 16px 20px 8px 20px;
 }
 
 .pieChart {

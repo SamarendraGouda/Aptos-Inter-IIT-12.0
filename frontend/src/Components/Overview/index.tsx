@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./index.module.css";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut, Pie } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+enum Tab {
+  USDC = "USDC",
+  APT = "APT",
+}
+
 const Overview = () => {
+  const AptosLogo =
+    "https://s2.coinmarketcap.com/static/img/coins/64x64/21794.png";
+  const UsdcLogo =
+    "https://s2.coinmarketcap.com/static/img/coins/64x64/3408.png";
+
+  const [selectedTab, setSelectedTab] = useState<Tab>(Tab.USDC);
+
+  const handleChangeTab = (tab: Tab) => {
+    setSelectedTab(tab);
+  };
   const data = {
     datasets: [
       {
@@ -54,7 +69,7 @@ const Overview = () => {
                 </div>
                 <div className={styles.legend}>
                   <div className={styles.legendColor4}></div>
-                  <div className={styles.legendText}>Acc. Balance</div>
+                  <div className={styles.legendText}>Account Bal.</div>
                 </div>
               </div>
             </div>
@@ -64,15 +79,33 @@ const Overview = () => {
       <div className={styles.rightContainer}>
         <div className={styles.topContainer}>
           <div className={styles.coinBalances}>
-            <div className={styles.usdcBalance}>
-              <div className={styles.name}>USDC</div>
+            <div
+              className={
+                selectedTab === Tab.USDC
+                  ? styles.usdcBalance
+                  : styles.aptBalance
+              }
+              onClick={() => handleChangeTab(Tab.USDC)}
+            >
+              <div className={styles.name}>
+                <img src={UsdcLogo} alt="" />
+                USDC
+              </div>
               <div className={styles.balances}>
                 <div className={styles.balance}>0.000000</div>
                 <div className={styles.value}>0.000000</div>
               </div>
             </div>
-            <div className={styles.aptBalance}>
-              <div className={styles.name}>APT</div>
+            <div
+              className={
+                selectedTab === Tab.APT ? styles.usdcBalance : styles.aptBalance
+              }
+              onClick={() => handleChangeTab(Tab.APT)}
+            >
+              <div className={styles.name}>
+                <img src={AptosLogo} alt="" />
+                APT
+              </div>
               <div className={styles.balances}>
                 <div className={styles.balance}>0.000000</div>
                 <div className={styles.value}>0.000000</div>
