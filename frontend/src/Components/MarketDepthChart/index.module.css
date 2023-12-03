@@ -1,13 +1,14 @@
 .container {
   display: flex;
   width: 280px;
-  padding: 12px 16px;
+  padding: 24px 24px;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   gap: 12px;
   background: #16182e;
   color: #ffffff;
+  border-radius: 4px;
 }
 
 .legend {

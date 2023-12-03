@@ -2,9 +2,9 @@ import React from "react";
 import styles from "./index.module.css";
 
 const MarketDepthChart = () => {
-  const data = [1, 2, 3, 4, 5];
-  const bid = [5, 4, 3, 2, 1];
-  const ask = [1, 2, 3, 4, 6];
+  const data = [1, 2, 3, 4, 5, 6, 7, 8];
+  const bid = [8, 7, 6, 5, 4, 3, 2, 1];
+  const ask = [1, 2, 3, 4, 6, 7, 8, 9];
   const max = Math.max(...bid, ...ask);
   const bidWidth = bid.map((item) => (item / max) * 100);
   const askWidth = ask.map((item) => (item / max) * 100);

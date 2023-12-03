@@ -40,8 +40,10 @@ const TradeLayout = () => {
     <div className={styles.container}>
       <div className={styles.sectionLeft}>
         <TradeHeader />
-        <CandleStickChart data={data} />
-        <MarketDepthChart />
+        <div className={styles.charts}>
+          <CandleStickChart data={data} />
+          <MarketDepthChart />
+        </div>
       </div>
       <div className={styles.sectionRight}>
         <TradeWidget />

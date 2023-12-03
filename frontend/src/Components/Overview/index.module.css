@@ -1,0 +1,303 @@
+.overviewContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: inherit;
+  margin: 0 3%;
+  margin-top: 36px;
+  margin-bottom: 20px;
+  gap: 42px;
+}
+
+.leftContainer {
+  display: flex;
+  width: 45%;
+  height: 100%;
+  background: #16182e;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 44px;
+  border-radius: 8px;
+}
+
+.rightContainer {
+  display: flex;
+  width: 45%;
+  height: 100%;
+  background: #16182e;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  padding: 28px 44px;
+  gap: 24px;
+}
+
+.header {
+  padding: 20px 0px;
+  margin: 20px 0px;
+  width: 100%;
+  color: #ffffff;
+  font-size: 24px;
+  border-bottom: 2px solid #2e324e;
+  text-align: left;
+}
+
+.chartBody {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 20px 0;
+  margin: 0 44px;
+  margin-bottom: 20px;
+}
+
+.chart {
+  width: 200px !important;
+  height: 200px !important;
+}
+
+.chartInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 60%;
+  height: 100%;
+  padding: 0 44px;
+}
+
+.chartInfoItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  gap: 24px;
+}
+
+.chartInfoItemTitle {
+  color: #ffffff;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.chartInfoItemValue {
+  color: #ffffff;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.legends {
+  color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+}
+
+.legend {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+}
+
+.legendColor1 {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #6802dd;
+}
+.legendColor2 {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #d1aaff;
+}
+.legendColor3 {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #aad6ff;
+}
+.legendColor4 {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ef33ff;
+}
+
+.topContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.coinBalances {
+  background: #101124;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  gap: 24px;
+}
+
+.usdcBalance {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  gap: 24px;
+  color: #ffffff;
+  padding: 20px 20px;
+}
+
+.aptBalance {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  gap: 24px;
+  color: #ffffff;
+  padding: 20px 20px;
+}
+
+.name {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.balances {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.balance {
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.value {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 300;
+}
+
+.bottomContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.accountContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  gap: 24px;
+  color: #ffffff;
+  padding: 0 20px 16px 20px;
+  border-bottom: 2px solid #2e324e;
+}
+
+.accountStats {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  gap: 6px;
+  color: #ffffff;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  gap: 16px;
+}
+
+.buttonGroup button {
+  display: flex;
+  width: 147px;
+  padding: 12px 18px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  background: #242944;
+  border-radius: 4px;
+  border: 2.4px solid var(--button-secondary, #242944);
+  color: var(--text-body, #fff);
+  /* font-family: Inter Tight; */
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.accountTitle {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+.accountItemValue {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.inUseChart {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  gap: 36px;
+}
+
+.inUseContainer {
+  display: flex;
+  height: 64px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  gap: 24px;
+  color: #ffffff;
+  padding: 16px 20px;
+}
+
+.pieChart {
+  width: 64px !important;
+  height: 64px !important;
+}

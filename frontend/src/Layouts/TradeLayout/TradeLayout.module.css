@@ -16,6 +16,15 @@
   margin-top: 24px;
 }
 
+.charts {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  height: auto;
+}
+
 .sectionRight {
   display: flex;
   flex-direction: column;
