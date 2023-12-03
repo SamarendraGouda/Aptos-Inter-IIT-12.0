@@ -81,9 +81,9 @@ module econia_pool_addr::econia_pool{
         let den = total_assets;
         let amt_to_return = num/den;
         
-        let calc = (margin*leverage)/total_assets;
+        let calc = (margin*leverage)*/total_assets;
 
-        let profit_loss_cut = if (market_price_of_asset > calc) {market_price_of_asset - calc} else {calc-market_price_of_asset};
+        let profit_loss_cut = if (market_price_of_asset > calc) {(market_price_of_asset - calc)*assets_sold} else {(calc-market_price_of_asset)*assets_sold};
 
         
         
