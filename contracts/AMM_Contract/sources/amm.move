@@ -14,7 +14,7 @@ module amm_addr::amm{
 
 struct LP<phantom X , phantom Y> {}
 
-struct Pair<X: copy + store, Y: copy + store> has key {
+struct Pair<X: copy + store, Y: copy + store> has key, store {
   x_coin: Coin<X>,
   y_coin: Coin<Y>,
   lp_locked: Coin<LP<X, Y>>,
