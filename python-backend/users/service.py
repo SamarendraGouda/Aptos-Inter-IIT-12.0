@@ -12,18 +12,12 @@ class UserController(View):
     def post(self, request, *args, **kwargs):
         try:
             data = json.loads(request.body.decode('utf-8'))
-            action = data.get('action')
+            user_address = data.get('address')
+            if not user_address:
+                return JsonResponse({'error': 'Missing required field: address'}, status=400)
 
-            if action == 'add':
-                user_address = data.get('address')
-                if not user_address:
-                    return JsonResponse({'error': 'Missing required field: address'}, status=400)
-
-                user = User.add_user(user_address)
-                return JsonResponse({'success': f'User {user.address} created successfully'}, status=201)
-
-            else:
-                return JsonResponse({'error': 'Invalid action'}, status=400)
+            user = User.add_user(user_address)
+            return JsonResponse({'success': f'User {user.address} created successfully'}, status=201)
 
         except Exception as error:
             return JsonResponse({'error': f'Error: {str(error)}'}, status=500)
