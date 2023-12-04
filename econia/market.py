@@ -400,3 +400,33 @@ def get_market_account_balance(account: Account, market_id: int)-> Tuple[int, in
     print(f"  * Base Balance: {balance_base}")
     print(f"  * Quote Balane: {balance_quote}")
     return balance_base, balance_quote
+
+def get_filled_orders(account: Account, market_id: int) -> 'list[dict]':
+    viewer = EconiaViewer(NODE_URL, ECONIA_ADDR)
+    fill_events = get_fill_events(viewer, account.account_address, market_id, 0)
+    n_fills = len(fill_events)
+    if n_fills == 0:
+        print("  * There were no limit orders filled by any orders placed.")
+    else:
+        print(f"  * There were {n_fills} limit orders filled by the orders placed.")
+    return fill_events
+
+def change_order_size(market_id: int, order_id: int, new_size: int, account: Account, side: Side):
+    econia_client = EconiaClient(NODE_URL, ECONIA_ADDR, account)
+    call_data = change_order_size_user(ECONIA_ADDR, market_id, side, order_id, new_size)
+    exec_txn(econia_client, call_data, f"Order size changed to {new_size}")
+
+def cancel_order(market_id: int, order_id: int, account: Account, side: Side):
+    econia_client = EconiaClient(NODE_URL, ECONIA_ADDR, account)
+    call_data = cancel_all_orders_user(ECONIA_ADDR, market_id, side)
+    exec_txn(econia_client, call_data, f"All {side} orders cancelled for {account.address}")
+
+def get_open_orders(account: Account, market_id: int) -> 'list[dict]':
+    viewer = EconiaViewer(NODE_URL, ECONIA_ADDR)
+    open_orders = get_open_orders_all(viewer, account.account_address, market_id, 0)
+    n_open_orders = len(open_orders)
+    if n_open_orders == 0:
+        print("  * There are no open orders for the queried account")
+    else:
+        print(f"  * There are {n_open_orders} open orders for the queried account")
+    return open_orders
