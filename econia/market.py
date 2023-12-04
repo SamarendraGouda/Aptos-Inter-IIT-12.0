@@ -423,7 +423,7 @@ def cancel_order(market_id: int, order_id: int, account: Account, side: Side):
 
 def get_open_orders(account: Account, market_id: int) -> 'list[dict]':
     viewer = EconiaViewer(NODE_URL, ECONIA_ADDR)
-    open_orders = get_open_orders_all(viewer, account.account_address, market_id, 0)
+    open_orders = get_open_orders_all(viewer, market_id)
     n_open_orders = len(open_orders)
     if n_open_orders == 0:
         print("  * There are no open orders for the queried account")
