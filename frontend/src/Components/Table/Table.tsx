@@ -71,6 +71,15 @@ const columns: ColumnsType<DataType> = [
   {
     title: "24H Change",
     dataIndex: "change_24h",
+    render: (text, record) => (
+      <div
+        className={
+          text.includes("+") ? styles.changePositive : styles.changeNegative
+        }
+      >
+        <span>{text}</span>
+      </div>
+    ),
     filters: [
       {
         text: "London",
@@ -187,7 +196,40 @@ const data = [
     logo: ETHEREUM_LOGO,
     name: "ETH/USDC",
     price: "2058.8",
+    change_24h: "-3.27%",
+    high_24h: "2059.0",
+    low_24h: "2058.8",
+    volume_24h: "$1.80M",
+    openInterest: "$179.0M",
+  },
+  {
+    key: "3",
+    logo: TETHER_LOGO,
+    name: "USDT/USDC",
+    price: "2058.8",
     change_24h: "+3.27%",
+    high_24h: "2059.0",
+    low_24h: "2058.8",
+    volume_24h: "$1.80M",
+    openInterest: "$179.0M",
+  },
+  {
+    key: "1",
+    logo: BITCOIN_LOGO,
+    name: "BTC/USDC",
+    price: "2058.8",
+    change_24h: "+3.27%",
+    high_24h: "2059.0",
+    low_24h: "2058.8",
+    volume_24h: "$1.80M",
+    openInterest: "$179.0M",
+  },
+  {
+    key: "2",
+    logo: ETHEREUM_LOGO,
+    name: "ETH/USDC",
+    price: "2058.8",
+    change_24h: "-3.27%",
     high_24h: "2059.0",
     low_24h: "2058.8",
     volume_24h: "$1.80M",

@@ -26,7 +26,7 @@ const TopCard: React.FC<TopCardProps> = ({ title, value, color, icon }) => {
           <div className={styles.valueRow}>
             <div className={styles.name}>{item.name}</div>
             <div className={styles.value}>{item.value}</div>
-            <div className={styles.change}>{item.change}</div>
+            <div className={styles.changePositive}>{item.change}</div>
           </div>
         ))}
       </div>

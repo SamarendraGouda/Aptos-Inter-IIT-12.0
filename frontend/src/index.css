@@ -12,6 +12,32 @@ code {
     monospace;
 }
 
+.ant-modal-content {
+  background: #191b35 !important;
+  border-radius: 8px !important;
+}
+
+.wallet-button {
+  background: #191b35 !important;
+  color: #ffffff !important;
+  border-radius: 4px !important;
+  border: 1px solid #ffffff !important;
+  font-family: Inter-Tight !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  padding: 10px 20px !important;
+}
+
+.wallet-button:hover {
+  background: #242944 !important;
+  border-radius: 4px !important;
+  border: 1px solid #ffffff !important;
+}
+
+.ant-table-cell-row-hover {
+  background: #242944 !important;
+}
+
 .css-1eoe787-MuiSlider-markLabel {
   color: #ffffff !important;
   opacity: 0.5 !important;

@@ -5,15 +5,20 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import store from "./Store/Store";
+import { PetraWallet } from "petra-plugin-wallet-adapter";
+import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
 
+const wallets = [new PetraWallet()];
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <AptosWalletAdapterProvider plugins={wallets} autoConnect={true}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </AptosWalletAdapterProvider>
   </React.StrictMode>
 );
 

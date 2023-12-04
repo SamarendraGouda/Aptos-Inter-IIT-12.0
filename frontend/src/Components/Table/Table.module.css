@@ -7,6 +7,9 @@
   color: #a9a9b0 !important;
   border-radius: 0px !important;
   border: none !important;
+  font-family: Inter-Tight !important;
+  font-size: 20px !important;
+  font-weight: 500 !important;
 }
 
 .table th::before {
@@ -17,14 +20,18 @@
   background: #16182e !important;
   color: #a9a9b0 !important;
   border-bottom: none !important;
+  font-family: Inter-Tight !important;
+  font-size: 16px;
 }
 
 .table td {
   border-bottom: none !important;
+  font-family: Inter-Tight !important;
 }
 
 .table li {
   border: none !important;
+  font-family: Inter-Tight !important;
 }
 
 .table li a {
@@ -32,11 +39,12 @@
   color: #a9a9b0 !important;
   border-radius: 0px !important;
   border: none !important;
+  font-family: Inter-Tight !important;
 }
 
 .tableItem {
   display: flex;
-  width: 60%;
+  width: 70%;
   justify-content: center;
   align-items: center;
   gap: 10px;
@@ -54,7 +62,17 @@
   border-radius: 4px !important;
   border: none !important;
   display: flex !important;
-  padding: 4px 16px !important;
+  padding: 8px 16px !important;
   align-items: center !important;
   gap: 10px !important;
+  cursor: pointer;
 }
+
+.changePositive {
+  color: #0ECC83 ;
+}
+
+.changeNegative {
+  color: #FA3C58;
+}
+

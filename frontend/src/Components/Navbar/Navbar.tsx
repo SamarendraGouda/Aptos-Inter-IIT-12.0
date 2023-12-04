@@ -6,11 +6,16 @@ import avatar from "./../../Assets/avatar.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuth } from "../../Store/authSlice";
 
+import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
+import "@aptos-labs/wallet-adapter-ant-design/dist/index.css";
+
 import { Link } from "react-router-dom";
+import WalletModal from "../WalletModal";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state: any) => state.user);
+  const [visible, setVisible] = React.useState(false);
 
   const getAptosWallet = () => {
     if ("aptos" in window) {
@@ -19,7 +24,7 @@ const Navbar = () => {
       return null;
     }
   };
-  
+
   const aptosWallet = getAptosWallet();
 
   const connectWallet = async () => {
@@ -42,11 +47,18 @@ const Navbar = () => {
           <Link to="/trade">Trade</Link>
         </div>
         <div className={styles.navItem}>
+          <Link to="/earn">Earn</Link>
+        </div>
+        <div className={styles.navItem}>
           <Link to="/portfolio">Portfolio</Link>
         </div>
       </div>
       <div className={styles.navListRight}>
-        {!user ? (
+        <div onClick={() => setVisible(true)}>
+          <img src={wallet} alt="wallet" />
+        </div>
+        <WalletSelector />
+        {/* {!user ? (
           <div className={styles.wallet} onClick={() => connectWallet()}>
             <img src={wallet} alt="wallet" />
             Connect Wallet
@@ -58,8 +70,9 @@ const Navbar = () => {
               -4
             )}`}</span>
           </div>
-        )}
+        )} */}
       </div>
+      <WalletModal visible={visible} setVisible={setVisible} />
     </div>
   );
 };
