@@ -5,7 +5,7 @@ from django.views import View
 import json
 from .models import Transaction
 from users.models import User
-
+from utils.maths import calculate_liquidation_price, calculate_margin
 
 @method_decorator(csrf_exempt, name='dispatch')
 class TransactionController(View):
@@ -21,9 +21,11 @@ class TransactionController(View):
             buy_coin = data.get('buy_coin')
             leverage = data.get('leverage')
             transaction_class = data.get('transaction_class')
+            is_long = True if type == 'LONG' else False
             if not type or not state or not from_user or not trade_amount or not trade_price or not sell_coin or not buy_coin or not transaction_class or not leverage:
                 return JsonResponse({'error': 'Missing required fields'}, status=400)
-            # add margin and liquidation price
+            margin = calculate_margin(trade_amount, trade_price, leverage)
+            liquidation_price = calculate_liquidation_price(trade_amount, trade_price, leverage, is_long)
             transaction = Transaction(type, state, from_user, trade_amount,
                                       trade_price, sell_coin, buy_coin, transaction_class, leverage)
             return JsonResponse({'success': f'Transaction {transaction.type} created successfully'}, status=201)
