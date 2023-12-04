@@ -4,6 +4,8 @@ version = "1.0.0"
 authors = []
 
 [addresses]
+econia_pool_addr = '0x5988e8ab6ade6bc3006c7e57992078db2caf981c5a16d53c26cb1071a91b1b26'
+
 
 [dev-addresses]
 

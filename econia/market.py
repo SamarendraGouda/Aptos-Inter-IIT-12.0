@@ -1,6 +1,6 @@
 from os import environ
 from typing import Optional, Tuple
-import sys
+
 from aptos_sdk.account import Account
 from aptos_sdk.account_address import AccountAddress
 from aptos_sdk.bcs import Serializer, encoder
@@ -31,13 +31,26 @@ from econia_sdk.view.user import (
     get_market_account,
     get_place_limit_order_events,
 )
-FAUCET_ADDR = "0xfcfc28129cf22cf765ba4389e5769d9b24fd77a3d07a2c44216befca7a6442cd"
+
+U64_MAX = (2**64) - 1
+COIN_TYPE_APT = "0x1::aptos_coin::AptosCoin"
+MIN_SIZE = 500
+ECONIA_ADDR = (AccountAddress.from_hex("0x1bacdb8e2c4bfe3b915d1bfe1c20f5c1dae2a49828804b3d55248b744c8bc5ae"))
+ECONIA_ACCT = Account.load_key("0xABE315150D3A39884788EC47F8CC11DB1729C6D4F30557F6DA169F5208E7B2DD")
+FAUCET_ADDR = AccountAddress.from_hex("0x1bacdb8e2c4bfe3b915d1bfe1c20f5c1dae2a49828804b3d55248b744c8bc5ae")
 COIN_TYPE_EAPT = f"{FAUCET_ADDR}::example_apt::ExampleAPT"
 COIN_TYPE_EUSDC = f"{FAUCET_ADDR}::example_usdc::ExampleUSDC"
-COIN_TYPE_APT = "0x1::aptos_coin::AptosCoin"
+NODE_URL = "http://0.0.0.0:8080/v1"
+FAUCET_URL = "http://0.0.0.0:8081"
 
-def create_market(ECONIA_ADDR: AccountAddress, BASE_COIN: str, QUOTE_COIN: str, DEF_COIN: str, lot_size: int, tick_size: int, min_size: int, NODE_URL: str, account: Account,) ->str:
-    calldata = register_market_base_coin_from_coinstore(ECONIA_ADDR,
+txn_hash_buffer = []
+
+def create_market(BASE_COIN: str, QUOTE_COIN: str, DEF_COIN: str, lot_size: int, tick_size: int, min_size: int,  account: Account) ->int:
+    viewer = EconiaViewer(NODE_URL, ECONIA_ADDR)
+    market_id = get_market_id_base_coin(viewer, BASE_COIN, QUOTE_COIN, lot_size, tick_size, min_size)
+    if market_id ==None:
+        print("Market does not exist. Creating a new one...")
+        calldata = register_market_base_coin_from_coinstore(ECONIA_ADDR,
             TypeTag(StructTag.from_str(BASE_COIN)),
             TypeTag(StructTag.from_str(QUOTE_COIN)),
             TypeTag(StructTag.from_str(DEF_COIN)),
@@ -50,7 +63,6 @@ def create_market(ECONIA_ADDR: AccountAddress, BASE_COIN: str, QUOTE_COIN: str, 
         calldata,
         "Create a new market",
     )
-    viewer = EconiaViewer(NODE_URL, ECONIA_ADDR)
     market_id = get_market_id_base_coin(
         viewer, BASE_COIN, QUOTE_COIN, lot_size, tick_size, min_size
     )
@@ -70,9 +82,7 @@ def place_limit_order(
     market_id: int,
     size_lots_of_base: int,
     price_ticks_per_lot: int,
-    ECONIA_ADDR: str,
     BASE_COIN: str, QUOTE_COIN: str,
-    NODE_URL: str
 ):
     calldata = place_limit_order_user_entry(
         ECONIA_ADDR,
@@ -109,7 +119,7 @@ def exec_txn(client: EconiaClient, calldata: EntryFunction, reason: str):
     return txn_hash
 
 def get_best_prices(
-    NODE_URL: str, ECONIA_ADDR: str, market_id: int
+    market_id: int
 ) -> Tuple[Optional[int], Optional[int]]:
     viewer = EconiaViewer(NODE_URL, ECONIA_ADDR)
     price_levels = get_price_levels(viewer, market_id)
@@ -125,7 +135,7 @@ def get_best_prices(
     return price_bid, price_ask
 
 
-def report_best_price_levels(NODE_URL: str, ECONIA_ADDR: str,  market_id: int):
+def report_best_price_levels(market_id: int):
     print("CURRENT BEST PRICE LEVELS:")
     viewer = EconiaViewer(NODE_URL, ECONIA_ADDR)
     price_levels = get_price_levels(viewer, market_id)
@@ -180,7 +190,7 @@ def report_place_limit_order_event(event: dict):
     print(f"  * Size: {size_available} available eAPT lots / {size_original}")
 
 
-def report_fill_events(fill_events: list[dict]):
+def report_fill_events(fill_events: 'list[dict]'):
     print("LAST ORDER EXECUTION BREAKDOWN: FillEvent(s)")
     if len(fill_events) != 0:
         last_events = find_all_fill_events_with_last_taker_order_id(fill_events)
@@ -212,7 +222,7 @@ def report_fill_events(fill_events: list[dict]):
         print("  * There were no order fills for the queried account")
 
 
-def report_order_for_last_fill(fill_events: list[dict], open_orders: list[dict]):
+def report_order_for_last_fill(fill_events: 'list[dict]', open_orders: 'list[dict]'):
     order_id = fill_events[-1]["data"]["taker_order_id"]  # type: ignore
     open_order = list(filter(lambda ev: ev["order_id"] == order_id, open_orders))
     if len(open_order) == 1:
@@ -224,8 +234,8 @@ def report_order_for_last_fill(fill_events: list[dict], open_orders: list[dict])
 
 
 def find_all_fill_events_with_last_taker_order_id(
-    events: list[dict],
-) -> list[dict]:
+    events: 'list[dict]',
+) -> 'list[dict]':
     index = len(events) - 1
     returns = []
     while index > 0:
