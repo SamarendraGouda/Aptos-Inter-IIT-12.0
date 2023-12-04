@@ -1,40 +1,58 @@
-from django.db import models
+from utils.database import mongo_database
+class Coin():
+    def __init__(self, name=None, symbol=None, address=None):
+        self.name = name
+        self.symbol = symbol
+        self.address = address
 
-
-class Coin(models.Model):
-    name = models.CharField(max_length=255, unique=True)
-    symbol = models.CharField(max_length=20, unique=True)
-    address = models.CharField(max_length=255, unique=True)
-
-    def __str__(self):
-        return self.name
-
-    def add_coin(name, symbol, address):
+    def get_coin(self):
         try:
-            existing_coin = Coin.objects.filter(name=name).first()
+            existing_coin = mongo_database.db.coins.find_one(
+                {'name': self.name})
+            if existing_coin:
+                return existing_coin
+            else:
+                raise Exception("Coin not found")
+        except Exception as error:
+            print("Error getting coin:", error)
+            raise error
+
+    def add_coin(self):
+        try:
+            existing_coin = mongo_database.db.coins.find_one(
+                {'symbol': self.symbol})
             if existing_coin:
                 raise Exception("Coin already exists")
-            coin = Coin.objects.create(
-                name=name,
-                symbol=symbol,
-                address=address,
-            )
-            return coin
+            else:
+                mongo_database.db.coins.insert_one({
+                    'name': self.name,
+                    'symbol': self.symbol,
+                    'address': self.address
+                })
+            return self
+        
         except Exception as error:
             print("Error adding coin:", error)
             raise error
 
     def get_all_coins():
         try:
-            return Coin.objects.all()
+            coins = mongo_database.db.coins.find({})
+            return coins
         except Exception as error:
-            print("Error getting all coins:", error)
+            print("Error getting coins:", error)
             raise error
 
-    def delete_coin(name):
+    def delete_coin(self):
         try:
-            coin = Coin.objects.filter(name=name).first()
-            coin.delete()
+            existing_coin = mongo_database.db.coins.find_one(
+                {'name': self.name})
+            if existing_coin:
+                mongo_database.db.coins.delete_one(
+                    {'name': self.name})
+            else:
+                raise Exception("Coin not found")
+            return self
         except Exception as error:
             print("Error deleting coin:", error)
             raise error

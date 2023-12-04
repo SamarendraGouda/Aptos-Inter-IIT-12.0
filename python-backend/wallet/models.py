@@ -1,23 +1,21 @@
-from django.db import models
+from utils.database import mongo_database
 from market.models import Coin
+from datetime import datetime
 
-class Wallet(models.Model):
-    coin = models.ForeignKey(Coin, on_delete=models.CASCADE)
-    value = models.DecimalField(max_digits=10, decimal_places=2)
-
-    def __str__(self):
-        return f"{self.coin.name} Wallet"
+class Wallet():
+    def __init__(self, coin, value):
+        self.coin = coin
+        self.value = value
 
 
-class WalletTransaction(models.Model):
-    class TransactionType(models.TextChoices):
+class WalletTransaction():
+    class TransactionType():
         CREDIT = 'CREDIT', 'Credit'
         DEBIT = 'DEBIT', 'Debit'
 
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    coin = models.ForeignKey(Coin, on_delete=models.CASCADE)
-    type = models.CharField(max_length=10, choices=TransactionType.choices)
-    timestamp = models.DateTimeField(auto_now_add=True)
+    def __init__(self, coin, value, transaction_type):
+        self.coin = coin
+        self.value = value
+        self.transaction_type = transaction_type
+        self.timestamp = datetime.now()
 
-    def __str__(self):
-        return f"{self.type} {self.amount} {self.coin.name} Transaction"

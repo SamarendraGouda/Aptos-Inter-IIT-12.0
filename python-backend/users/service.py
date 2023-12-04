@@ -15,8 +15,7 @@ class UserController(View):
             user_address = data.get('address')
             if not user_address:
                 return JsonResponse({'error': 'Missing required field: address'}, status=400)
-
-            user = User.add_user(user_address)
+            user = User(user_address).add_user()
             return JsonResponse({'success': f'User {user.address} created successfully'}, status=201)
 
         except Exception as error:
@@ -28,41 +27,29 @@ class WalletController(View):
     def post(self, request, *args, **kwargs):
         try:
             data = json.loads(request.body.decode('utf-8'))
+            address = data.get('address')
             coin_symbol = data.get('coin_symbol')
             value = data.get('value')
             transaction_type = data.get('transaction_type')
 
             if not coin_symbol or not value or not transaction_type:
                 return JsonResponse({'error': 'Missing required fields'}, status=400)
-
-            user = User.objects.get(address=data.get('user_address'))
-            coin_instance = Coin.objects.get(symbol=coin_symbol)
-
-            wallet = user.transaction_wallet(
-                coin_instance, value, transaction_type)
+            transaction = User(address).transaction_wallet(
+                coin_symbol, value, transaction_type)
 
             transaction_message = 'Debit' if transaction_type == WalletTransaction.TransactionType.DEBIT else 'Credit'
-            return JsonResponse({'success': f'{transaction_message} transaction completed. New wallet value: {wallet.value}'}, status=200)
-
-        except User.DoesNotExist:
-            return JsonResponse({'error': 'User not found'}, status=404)
-
-        except Wallet.DoesNotExist:
-            return JsonResponse({'error': 'Wallet not found'}, status=404)
+            return JsonResponse({'success': f'{transaction_message} transaction completed - {transaction}'}, status=200)
 
         except Exception as error:
             return JsonResponse({'error': f'Error: {str(error)}'}, status=500)
 
     def get(self, request, *args, **kwargs):
         try:
-            user = User.objects.get(address=request.GET.get('user_address'))
-            wallets = user.wallet.all()
+            user_address = request.GET.get('user_address')
+            wallets = User(user_address).get_wallet()
             wallet_list = [{'coin': wallet.coin.name,
                             'value': wallet.value} for wallet in wallets]
             return JsonResponse({'wallets': wallet_list}, status=200)
-
-        except User.DoesNotExist:
-            return JsonResponse({'error': 'User not found'}, status=404)
 
         except Exception as error:
             return JsonResponse({'error': f'Error: {str(error)}'}, status=500)
@@ -72,44 +59,12 @@ class WalletController(View):
 class TransactionController(View):
     def get(self, request, *args, **kwargs):
         try:
-            user = User.objects.get(address=request.GET.get('user_address'))
-            transactions = user.transaction_history()
+            user_address = request.GET.get('user_address')
+            transactions = User(user_address).transaction_history()
             transaction_list = [{'coin': transaction.coin.name, 'amount': transaction.amount,
                                  'type': transaction.type, 'timestamp': transaction.timestamp} for transaction in transactions]
             return JsonResponse({'transactions': transaction_list}, status=200)
 
-        except User.DoesNotExist:
-            return JsonResponse({'error': 'User not found'}, status=404)
-
         except Exception as error:
             return JsonResponse({'error': f'Error: {str(error)}'}, status=500)
 
-    def post(self, request, *args, **kwargs):
-        try:
-            data = json.loads(request.body.decode('utf-8'))
-            coin_symbol = data.get('coin_symbol')
-            value = data.get('value')
-            transaction_type = data.get('transaction_type')
-
-            if not coin_symbol or not value or not transaction_type:
-                return JsonResponse({'error': 'Missing required fields'}, status=400)
-
-            user = User.objects.get(address=data.get('user_address'))
-            coin_instance = Coin.objects.get(symbol=coin_symbol)
-
-            wallet = user.transaction_wallet(
-                coin_instance, value, transaction_type)
-            user.transaction_history_add(
-                coin_instance, value, transaction_type)
-
-            transaction_message = 'Debit' if transaction_type == WalletTransaction.TransactionType.DEBIT else 'Credit'
-            return JsonResponse({'success': f'{transaction_message} transaction completed. New wallet value: {wallet.value}'}, status=200)
-
-        except User.DoesNotExist:
-            return JsonResponse({'error': 'User not found'}, status=404)
-
-        except Wallet.DoesNotExist:
-            return JsonResponse({'error': 'Wallet not found'}, status=404)
-
-        except Exception as error:
-            return JsonResponse({'error': f'Error: {str(error)}'}, status=500)

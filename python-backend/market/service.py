@@ -20,7 +20,8 @@ class CoinController(View):
                 if not name or not symbol or not address:
                     return JsonResponse({'error': 'Missing required fields'}, status=400)
 
-                coin = Coin.add_coin(name=name, symbol=symbol, address=address)
+                coin = Coin(name, symbol, address)
+                coin.add_coin()
                 return JsonResponse({'success': f'Coin {coin.name} created successfully'}, status=201)
 
             elif action == 'delete':
@@ -28,7 +29,8 @@ class CoinController(View):
                 if not name:
                     return JsonResponse({'error': 'Missing required fields'}, status=400)
 
-                Coin.delete_coin(name)
+                coin = Coin(name)
+                coin.delete_coin()
                 return JsonResponse({'success': f'Coin {name} deleted successfully'}, status=200)
 
         except Exception as error:
