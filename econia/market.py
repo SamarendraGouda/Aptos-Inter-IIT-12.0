@@ -248,8 +248,6 @@ def find_all_fill_events_with_last_taker_order_id(
     return returns
 
 def setup_new_account(
-    NODE_URL: str,
-    ECONIA_ADDR: str,
     market_id: int,
     account: Account,
     BASE_COIN: str,
@@ -268,7 +266,7 @@ def setup_new_account(
     )
     exec_txn(client, calldata, f"Register a new account in market {market_id}")
 
-def deposit_into_market_account(ECONIA_ADDR: str, market_id: int, amount: int, NODE_URL: str, account: Account, COIN_TYPE: str):
+def deposit_into_market_account(market_id: int, amount: int, account: Account, COIN_TYPE: str):
     calldata = deposit_from_coinstore(
         ECONIA_ADDR,
         TypeTag(StructTag.from_str(COIN_TYPE)),
@@ -282,7 +280,7 @@ def deposit_into_market_account(ECONIA_ADDR: str, market_id: int, amount: int, N
         f"Deposited {amount} of specified coins into market {market_id}",
     )
 
-def get_market_account_balance(NODE_URL: str, ECONIA_ADDR: str, market_id: int, account: Account)-> Tuple[int, int]:
+def get_market_account_balance(market_id: int, account: Account)-> Tuple[int, int]:
     viewer = EconiaViewer(NODE_URL, ECONIA_ADDR)
     mkt_account = get_market_account(viewer, account.account_address, market_id, 0)
     balance_base = mkt_account["base_available"] // 10**8
@@ -290,8 +288,6 @@ def get_market_account_balance(NODE_URL: str, ECONIA_ADDR: str, market_id: int, 
     return balance_base, balance_quote
 
 def place_limit_orders_best_limit_order(
-    NODE_URL: str,
-    ECONIA_ADDR: str,
     account: Account,
     market_id: int,
     size_lots_of_base: int,
@@ -339,8 +335,6 @@ def place_limit_orders_best_limit_order(
     return get_best_prices(viewer, market_id)
 
 def place_market_order(
-    ECONIA_ADDR: str,
-    NODE_URL: str,
     BASE_COIN: str,
     QUOTE_COIN: str,
     direction: Side,
@@ -365,7 +359,44 @@ def place_market_order(
         f"Place market {note} order ({size_lots_of_base} lots)",
     )
 
-def get_order_ids(account_address: AccountAddress, market_id: int, NODE_URL: str, ECONIA_ADDR: str) -> Tuple[set, set]:
+def get_order_ids(account_address: AccountAddress, market_id: int) -> Tuple[set, set]:
     viewer = EconiaViewer(NODE_URL, ECONIA_ADDR)
     market_account = get_market_account(viewer, account_address, market_id, 0)
     return (market_account["bids"], market_account["asks"])
+
+def fund_APT(account: Account, wholes: int):
+    calldata = EntryFunction(
+        ModuleId.from_str(f"{FAUCET_ADDR}::faucet"),  # module
+        "mint",  # funcname
+        [TypeTag(StructTag.from_str(COIN_TYPE_EAPT))],  # generics
+        [encoder(wholes * (10**8), Serializer.u64)],  # arguments
+    )
+
+    return exec_txn(
+        EconiaClient(NODE_URL, ECONIA_ADDR, account),
+        calldata,
+        f"Mint {wholes/1.0} eAPT (yet to be deposited)",
+    )
+
+
+def fund_USDC(account: Account, wholes: int):
+    calldata = EntryFunction(
+        ModuleId.from_str(f"{FAUCET_ADDR}::faucet"),  # module
+        "mint",  # funcname
+        [TypeTag(StructTag.from_str(COIN_TYPE_EUSDC))],  # generics
+        [encoder(wholes * (10**6), Serializer.u64)],  # arguments
+    )
+    return exec_txn(
+        EconiaClient(NODE_URL, ECONIA_ADDR, account),
+        calldata,
+        f"Mint {wholes/1.0} eUSDC (yet to be deposited)",
+    )
+
+def get_market_account_balance(account: Account, market_id: int)-> Tuple[int, int]:
+    viewer = EconiaViewer(NODE_URL, ECONIA_ADDR)
+    market_account = get_market_account(viewer, account.account_address, market_id, 0)
+    balance_base = market_account["base_available"] // 10**8
+    balance_quote = market_account["quote_available"] // 10**6
+    print(f"  * Base Balance: {balance_base}")
+    print(f"  * Quote Balane: {balance_quote}")
+    return balance_base, balance_quote
