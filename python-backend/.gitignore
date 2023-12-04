@@ -1,0 +1,7 @@
+**/secrets.py
+*.sqlite3
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+local_settings.py
