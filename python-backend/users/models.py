@@ -36,7 +36,7 @@ class User:
             if existing_user:
                 return existing_user
             else:
-                raise Exception("User not found")
+                return None
         except Exception as error:
             print("Error getting user:", error)
             raise error
