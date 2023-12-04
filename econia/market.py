@@ -354,3 +354,8 @@ def place_market_order(
         calldata,
         f"Place market {note} order ({size_lots_of_base} lots)",
     )
+
+def get_order_ids(account_address: AccountAddress, market_id: int, NODE_URL: str, ECONIA_ADDR: str) -> Tuple[set, set]:
+    viewer = EconiaViewer(NODE_URL, ECONIA_ADDR)
+    market_account = get_market_account(viewer, account_address, market_id, 0)
+    return (market_account["bids"], market_account["asks"])
