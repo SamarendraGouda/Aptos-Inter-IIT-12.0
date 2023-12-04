@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  background: #16182e;
+  width: 560px;
+  padding: 28px 40px;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 32px;
+}
+
+.topContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}

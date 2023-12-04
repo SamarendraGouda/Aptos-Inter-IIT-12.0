@@ -1,5 +1,6 @@
 .overviewContainer {
   display: flex;
+  font-family: Inter-Tight;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -189,6 +190,7 @@
 .aptBalance:hover {
   background: #242944;
   border-radius: 12px;
+  transition: 0.3s ease-in-out;
   cursor: pointer;
 }
 
@@ -291,6 +293,7 @@
   border: 2.4px solid var(--button-secondary, #242944);
   color: var(--text-body, #fff);
   cursor: pointer;
+  transition: 0.3s ease-in-out;
 }
 
 .accountTitle {

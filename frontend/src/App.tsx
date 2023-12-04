@@ -4,6 +4,7 @@ import Market from "./Pages/Market/Market";
 import NotFound from "./Pages/NotFound/NotFound";
 import Trade from "./Pages/Trade/Trade";
 import Portfolio from "./Pages/Portfolio/Portfolio";
+import Earn from "./Pages/Earn";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/market" element={<Market />} />
           <Route path="/trade" element={<Trade />} />
+          <Route path="/earn" element={<Earn />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
