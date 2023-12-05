@@ -31,7 +31,9 @@ class WalletController(View):
             coin = data.get('coin')
             value = data.get('value')
             transaction_type = data.get('transaction_type')
-
+            print("transaction type", transaction_type)
+            print("transaction type in enum",
+                  WalletTransaction.TransactionType.DEBIT)
             if not coin or not value or not transaction_type:
                 return JsonResponse({'error': 'Missing required fields'}, status=400)
             transaction = User(address).transaction_wallet(

@@ -65,6 +65,7 @@ class User:
                 if transaction_type == WalletTransaction.TransactionType.DEBIT:
                     if existing_wallet:
                         if float(existing_wallet['value']) >= float(value):
+                            print("existing wallet",existing_wallet)
                             initial_value = float(existing_wallet['value'])
                             existing_wallet['value'] = initial_value - float(value)
                             mongo_database.db.users.update_one(

@@ -7,17 +7,17 @@ from wallet.models import WalletTransaction
 
 class Transaction():
     class TransactionType():
-        LONG = 'LONG', 'Long'
-        SHORT = 'SHORT', 'Short'
+        LONG = 'Long'
+        SHORT = 'Short'
 
     class TransactionClass():
-        MARKET = 'MARKET', 'Market'
-        LIMIT = 'LIMIT', 'Limit'
+        MARKET = 'Market'
+        LIMIT = 'Limit'
 
     class TransactionState():
-        ACTIVE = 'ACTIVE', 'Active'
-        SETTLED = 'SETTLED', 'Settled'
-        EXPIRED = 'EXPIRED', 'Expired'
+        ACTIVE = 'Active'
+        SETTLED = 'Settled'
+        EXPIRED = 'Expired'
 
     def __init__(self, type, state, from_user, trade_amount, trade_price, sell_coin, buy_coin, liquidation_price, transaction_class, leverage, margin):
         self.type = type
@@ -41,11 +41,10 @@ class Transaction():
                 existing_wallet = User.check_Wallet(
                     existing_user=existing_user, coin_instance=sell_coin_instance)
                 if existing_wallet:
-                    if float(existing_wallet['value']) >= float(self.margin):
-                        existing_user.transaction_wallet(
-                            sell_coin_instance, self.margin, WalletTransaction.TransactionType.DEBIT)
-                        buy_coin_instance = Coin(self.buy_coin).get_coin()
-                        mongo_database.db.transactions.insert_one({
+                    User(self.from_user).transaction_wallet(
+                            self.sell_coin, self.margin, WalletTransaction.TransactionType.DEBIT)
+                    buy_coin_instance = Coin(self.buy_coin).get_coin()
+                    mongo_database.db.transactions.insert_one({
                             'type': self.type,
                             'state': self.state,
                             'from_user': existing_user,
@@ -55,12 +54,11 @@ class Transaction():
                             'buy_coin': buy_coin_instance,
                             'created_at': self.created_at,
                             'transaction_class': self.transaction_class,
-                            'liquadtion_price': self.liquidation_price
+                            'liquadtion_price': self.liquidation_price,
+                            "leverage": self.leverage,
+                            "margin": self.margin
                         })
-                        return self
-                    else:
-                        raise Exception(
-                            "Insufficient funds in wallet for transaction")
+                    return self
                 else:
                     raise Exception("Wallet not found")
             else:

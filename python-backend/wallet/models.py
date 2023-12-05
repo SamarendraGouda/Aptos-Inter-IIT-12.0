@@ -15,8 +15,8 @@ class Wallet():
 
 class WalletTransaction():
     class TransactionType():
-        CREDIT = 'CREDIT', 'Credit'
-        DEBIT = 'DEBIT', 'Debit'
+        CREDIT = 'Credit'
+        DEBIT = 'Debit'
 
     def __init__(self, coin, value, transaction_type):
         self.coin = coin
