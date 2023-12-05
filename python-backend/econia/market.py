@@ -337,6 +337,11 @@ def place_limit_order(
     trader_account: Account,
 ):
     print("place limit order starting")
+    print("side", direction)
+    print("market_id", market_id)
+    print("size_lots_of_base", size_lots_of_base)
+    print("price_ticks_per_lot", price_ticks_per_lot)
+    print("trader_account", trader_account)
     calldata = place_limit_order_user_entry(
         ECONIA_ADDR,
         TypeTag(StructTag.from_str(COIN_TYPE_EAPT)),

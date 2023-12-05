@@ -48,11 +48,11 @@ class TransactionController(View):
                         Side.BID, TraderWallet, 1, int(trade_amount))
             elif transaction_class == Transaction.TransactionClass.LIMIT:
                 if type == Transaction.TransactionType.LONG:
-                    place_limit_order(Side.BID, TraderWallet, 1, int(trade_amount), int(
-                        trade_price))
+                    place_limit_order(Side.BID, 1, int(trade_amount), int(
+                        trade_price), TraderWallet)
                 elif type == Transaction.TransactionType.SHORT:
-                    place_limit_order(Side.BID, TraderWallet, 1, int(trade_amount), int(
-                        trade_price))
+                    place_limit_order(Side.BID, 1, int(trade_amount), int(
+                        trade_price), TraderWallet)
 
             transaction = Transaction(type, state, from_user, trade_amount, trade_price,
                                       sell_coin, buy_coin, liquidation_price, transaction_class, leverage, margin).add_transaction()
