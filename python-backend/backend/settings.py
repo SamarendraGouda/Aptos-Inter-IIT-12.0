@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'wallet.apps.WalletConfig',
     'transactions.apps.TransactionsConfig',
     'users.apps.UsersConfig',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -72,6 +73,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'backend.wsgi.application'
+ASGI_APPLICATION = "backend.asgi.application"
 
 
 # Database

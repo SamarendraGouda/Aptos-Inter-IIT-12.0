@@ -23,3 +23,7 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('transactions/', include('transactions.urls')),
 ]
+from market.urls import websocket_urlpatterns
+urlpatterns += [
+    path('ws/', include(websocket_urlpatterns)),
+]
