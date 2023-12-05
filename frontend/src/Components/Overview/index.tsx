@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import styles from "./index.module.css";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut, Pie } from "react-chartjs-2";
+import ButtonLoader from "../ButtonLoader";
+import { Modal } from "antd";
+import close from "./../../Assets/close.svg";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -14,11 +17,115 @@ export const AptosLogo =
   "https://s2.coinmarketcap.com/static/img/coins/64x64/21794.png";
 const UsdcLogo = "https://s2.coinmarketcap.com/static/img/coins/64x64/3408.png";
 
+//@ts-ignore
+const DepositModal = ({ visible, setVisible }) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const handleClickDeposit = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setVisible(false);
+    }, 2000);
+  };
+  return (
+    <Modal
+      visible={visible}
+      onOk={() => {}}
+      onCancel={() => setVisible(false)}
+      footer={null}
+      closeIcon={<img src={close} alt="" />}
+    >
+      <div className={styles.modalContainer}>
+        <div className={styles.modalTitle}>Deposit</div>
+        <div className={styles.modalContent}>
+          <div className={styles.modalContentItem}>
+            <input
+              className={styles.modalContentItemInput}
+              placeholder="0 USDC"
+            />
+            <img src={UsdcLogo} alt="" />
+          </div>
+        </div>
+        <div className={styles.modalButtonGroup}>
+          <button
+            className={styles.modalDepositButton}
+            onClick={() => handleClickDeposit()}
+          >
+            {loading ? <ButtonLoader /> : "Deposit"}
+          </button>
+        </div>
+      </div>
+    </Modal>
+  );
+};
+
+//@ts-ignore
+const WithdrawModal = ({ visible, setVisible }) => {
+  const [loading, setLoading] = useState<boolean>(false);
+  const handleClickWithdraw = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setVisible(false);
+    }, 2000);
+  };
+  return (
+    <Modal
+      visible={visible}
+      onOk={() => {}}
+      onCancel={() => setVisible(false)}
+      footer={null}
+      closeIcon={<img src={close} alt="" />}
+    >
+      <div className={styles.modalContainer}>
+        <div className={styles.modalTitle}>Withdraw</div>
+        <div className={styles.modalContent}>
+          <div className={styles.modalContentItem}>
+            <input
+              className={styles.modalContentItemInput}
+              placeholder="0 USDC"
+            />
+            <img src={UsdcLogo} alt="" />
+          </div>
+        </div>
+        <div className={styles.modalButtonGroup}>
+          <button
+            className={styles.modalDepositButton}
+            onClick={() => handleClickWithdraw()}
+          >
+            {loading ? <ButtonLoader /> : "Withdraw"}
+          </button>
+        </div>
+      </div>
+    </Modal>
+  );
+};
+
 const Overview = () => {
   const [selectedTab, setSelectedTab] = useState<Tab>(Tab.USDC);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [depositModalVisible, setDepositeModalVisible] =
+    useState<boolean>(false);
+  const [withdrawModalVisible, setWithdrawModalVisible] =
+    useState<boolean>(false);
 
   const handleChangeTab = (tab: Tab) => {
     setSelectedTab(tab);
+  };
+
+  const handleDepositModal = () => {
+    setDepositeModalVisible(true);
+  };
+
+  const handleWithdrawModal = () => {
+    setWithdrawModalVisible(true);
+  };
+
+  const handleFaucet = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
   };
   const data = {
     datasets: [
@@ -52,7 +159,7 @@ const Overview = () => {
           <div className={styles.chartInfo}>
             <div className={styles.chartInfoItem}>
               <div className={styles.chartInfoItemTitle}>Total Value</div>
-              <div className={styles.chartInfoItemValue}>$100,000</div>
+              <div className={styles.chartInfoItemValue}>$0.00</div>
               <div className={styles.legends}>
                 <div className={styles.legend}>
                   <div className={styles.legendColor1}></div>
@@ -116,17 +223,33 @@ const Overview = () => {
           <div className={styles.accountContainer}>
             <div className={styles.accountStats}>
               <div className={styles.accountTitle}>Account Balance</div>
-              <div className={styles.accountItemValue}>$100,000</div>
+              <div className={styles.accountItemValue}>$0.00</div>
             </div>
             <div className={styles.buttonGroup}>
-              <button className={styles.depositButton}>Deposit</button>
-              <button className={styles.withdrawButton}>Withdraw</button>
+              <button
+                className={styles.depositButton}
+                onClick={() => handleFaucet()}
+              >
+                {loading ? <ButtonLoader /> : "Faucet"}
+              </button>
+              <button
+                className={styles.depositButton}
+                onClick={() => handleDepositModal()}
+              >
+                Deposit
+              </button>
+              <button
+                className={styles.withdrawButton}
+                onClick={() => handleWithdrawModal()}
+              >
+                Withdraw
+              </button>
             </div>
           </div>
           <div className={styles.inUseContainer}>
             <div className={styles.accountStats}>
               <div className={styles.accountTitle}>In Use</div>
-              <div className={styles.accountItemValue}>$100,000</div>
+              <div className={styles.accountItemValue}>$0.00</div>
             </div>
             <div className={styles.buttonGroup}>
               <div className={styles.inUseChart}>
@@ -146,6 +269,14 @@ const Overview = () => {
           </div>
         </div>
       </div>
+      <DepositModal
+        visible={depositModalVisible}
+        setVisible={setDepositeModalVisible}
+      />
+      <WithdrawModal
+        visible={withdrawModalVisible}
+        setVisible={setWithdrawModalVisible}
+      />
     </div>
   );
 };

@@ -91,6 +91,7 @@
 }
 
 .rowLabel input {
+  width: 80%;
   height: 40px;
   background: #242944;
   border: none;
