@@ -3,6 +3,7 @@ import styles from "./TradeWidget.module.css";
 import { Slider } from "@mui/material";
 
 const TradeWidget = () => {
+  const [leverage, setLeverage] = React.useState(1);
   const marks = [
     {
       value: 1,
@@ -69,7 +70,7 @@ const TradeWidget = () => {
         <div className={styles.orderFormRow}>
           <div className={styles.rowLabel}>
             <div className={styles.orderFormLabel}>Long</div>
-            <div className={styles.orderFormLabel}>Leverage: 2x</div>
+            <div className={styles.orderFormLabel}>Leverage: {leverage}x</div>
           </div>
           <div className={styles.rowLabel}>
             <input className={styles.inputBox} placeholder="0"></input>
@@ -87,6 +88,8 @@ const TradeWidget = () => {
           <Slider
             className={styles.slider}
             defaultValue={1}
+            value={leverage}
+            onChange={(e, value) => setLeverage(value as number)}
             aria-label="Default"
             valueLabelDisplay="off"
             marks={marks}
@@ -97,7 +100,11 @@ const TradeWidget = () => {
         </div>
         <div className={styles.tradeDetails}>
           <div className={styles.tradeDetail}>
-            <div className={styles.tradeDetailLabel}>Position Size</div>
+            <div className={styles.tradeDetailLabel}>Total Margin</div>
+            <div className={styles.tradeDetailValue}>$0.00</div>
+          </div>
+          <div className={styles.tradeDetail}>
+            <div className={styles.tradeDetailLabel}>Estd. Trade Value</div>
             <div className={styles.tradeDetailValue}>$0.00</div>
           </div>
           <div className={styles.tradeDetail}>
@@ -105,23 +112,11 @@ const TradeWidget = () => {
             <div className={styles.tradeDetailValue}>$0.00</div>
           </div>
           <div className={styles.tradeDetail}>
-            <div className={styles.tradeDetailLabel}>Liquidation Price</div>
-            <div className={styles.tradeDetailValue}>$0.00</div>
-          </div>
-          <div className={styles.tradeDetail}>
             <div className={styles.tradeDetailLabel}>Leverage</div>
             <div className={styles.tradeDetailValue}>2x</div>
           </div>
           <div className={styles.tradeDetail}>
-            <div className={styles.tradeDetailLabel}>Fees</div>
-            <div className={styles.tradeDetailValue}>0.00%</div>
-          </div>
-          <div className={styles.tradeDetail}>
-            <div className={styles.tradeDetailLabel}>Liquidation Fee</div>
-            <div className={styles.tradeDetailValue}>0.00%</div>
-          </div>
-          <div className={styles.tradeDetail}>
-            <div className={styles.tradeDetailLabel}>Total Cost</div>
+            <div className={styles.tradeDetailLabel}>Liquidation Price</div>
             <div className={styles.tradeDetailValue}>$0.00</div>
           </div>
         </div>

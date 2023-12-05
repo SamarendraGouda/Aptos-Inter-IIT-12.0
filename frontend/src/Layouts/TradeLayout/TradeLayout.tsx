@@ -5,6 +5,7 @@ import TradeHeader from "../../Components/TradeHeader/TradeHeader";
 import TradeWidget from "../../Components/TradeWidget/TradeWidget";
 import CandleStickChart from "../../Components/CandleStickChart";
 import MarketDepthChart from "../../Components/MarketDepthChart";
+import TradePosition from "../../Components/TradePosition";
 
 const TradeLayout = () => {
   const data = [
@@ -38,15 +39,24 @@ const TradeLayout = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.sectionLeft}>
-        <TradeHeader />
-        <div className={styles.charts}>
-          <CandleStickChart data={data} />
-          <MarketDepthChart />
+      <div className={styles.subSection}>
+        <div className={styles.sectionLeft}>
+          <div className={styles.subLeft}>
+            <div className={styles.charts}>
+              <TradeHeader />
+              <div className={styles.subChart}>
+                <CandleStickChart data={data} />
+              </div>
+            </div>
+            <MarketDepthChart />
+          </div>
+          <div className={styles.positions}>
+            <TradePosition />
+          </div>
         </div>
-      </div>
-      <div className={styles.sectionRight}>
-        <TradeWidget />
+        <div className={styles.sectionRight}>
+          <TradeWidget />
+        </div>
       </div>
     </div>
   );

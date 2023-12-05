@@ -1,9 +1,26 @@
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   gap: 24px;
   border-radius: 4px;
+  width: inherit;
+  height: auto;
+  font-family: Inter-Tight;
+  margin: 0 30px;
+}
+
+.subSection {
+  display: flex;
+  flex-direction: row;
   width: 100%;
+  height: auto;
+}
+
+.subLeft {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
   height: auto;
 }
 
@@ -11,17 +28,35 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  width: 60%;
-  padding-left: 120px;
-  margin-top: 24px;
+  width: 75%;
+  scale: 0.9;
+}
+
+.positions {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  height: auto;
 }
 
 .charts {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   gap: 24px;
   width: 100%;
+  height: auto;
+}
+
+.subChart {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  width: 920px;
   height: auto;
 }
 
