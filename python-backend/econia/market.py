@@ -31,7 +31,7 @@ from econia_sdk.view.user import (
     get_market_account,
     get_place_limit_order_events,
 )
-#from utils.secrets import NODE_URL, FAUCET_URL
+from utils.secrets import NODE_URL, FAUCET_URL
 
 """
 HOW TO RUN THIS SCRIPT: poetry install && poetry run trade in /econia/src/python/sdk
@@ -44,8 +44,8 @@ There are several prompts; entering nothing for all of them will result in:
 - No market will be listed as recognized.
 """
 
-NODE_URL = "http://0.0.0.0:8080/v1"
-FAUCET_URL = "http://0.0.0.0:8081"
+#NODE_URL = "http://0.0.0.0:8080/v1"
+#FAUCET_URL = "http://0.0.0.0:8081"
 U64_MAX = (2**64) - 1
 COIN_TYPE_APT = "0x1::aptos_coin::AptosCoin"
 MIN_SIZE = 500
