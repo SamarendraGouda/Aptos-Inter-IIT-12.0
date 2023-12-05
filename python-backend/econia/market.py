@@ -31,6 +31,7 @@ from econia_sdk.view.user import (
     get_market_account,
     get_place_limit_order_events,
 )
+from utils.secrets import NODE_URL, FAUCET_URL
 
 """
 HOW TO RUN THIS SCRIPT: poetry install && poetry run trade in /econia/src/python/sdk
@@ -54,8 +55,6 @@ FAUCET_ADDR = AccountAddress.from_hex(
     "0x1bacdb8e2c4bfe3b915d1bfe1c20f5c1dae2a49828804b3d55248b744c8bc5ae")
 COIN_TYPE_EAPT = f"{FAUCET_ADDR}::example_apt::ExampleAPT"
 COIN_TYPE_EUSDC = f"{FAUCET_ADDR}::example_usdc::ExampleUSDC"
-NODE_URL = "http://0.0.0.0:8080/v1"
-FAUCET_URL = "http://0.0.0.0:8081"
 MARKET_CREATOR = Account.generate()
 
 rest_client = RestClient(NODE_URL)
