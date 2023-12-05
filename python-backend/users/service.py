@@ -28,14 +28,14 @@ class WalletController(View):
         try:
             data = json.loads(request.body.decode('utf-8'))
             address = data.get('address')
-            coin_symbol = data.get('coin_symbol')
+            coin = data.get('coin')
             value = data.get('value')
             transaction_type = data.get('transaction_type')
 
-            if not coin_symbol or not value or not transaction_type:
+            if not coin or not value or not transaction_type:
                 return JsonResponse({'error': 'Missing required fields'}, status=400)
             transaction = User(address).transaction_wallet(
-                coin_symbol, value, transaction_type)
+                coin, value, transaction_type)
 
             transaction_message = 'Debit' if transaction_type == WalletTransaction.TransactionType.DEBIT else 'Credit'
             return JsonResponse({'success': f'{transaction_message} transaction completed - {transaction}'}, status=200)

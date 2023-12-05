@@ -23,13 +23,13 @@ class Transaction():
         self.type = type
         self.state = state
         self.from_user = from_user
-        self.trade_amount = trade_amount
-        self.trade_price = trade_price
-        self.leverage = leverage
-        self.margin = margin
+        self.trade_amount = float(trade_amount)
+        self.trade_price = float(trade_price)
+        self.leverage = float(leverage)
+        self.margin = float(margin)
         self.sell_coin = sell_coin
         self.buy_coin = buy_coin
-        self.liquidation_price = liquidation_price
+        self.liquidation_price = float(liquidation_price)
         self.created_at = datetime.now()
         self.transaction_class = transaction_class
 
@@ -41,7 +41,7 @@ class Transaction():
                 existing_wallet = User.check_Wallet(
                     existing_user=existing_user, coin_instance=sell_coin_instance)
                 if existing_wallet:
-                    if existing_wallet['value'] >= self.margin:
+                    if float(existing_wallet['value']) >= float(self.margin):
                         existing_user.transaction_wallet(
                             sell_coin_instance, self.margin, WalletTransaction.TransactionType.DEBIT)
                         buy_coin_instance = Coin(self.buy_coin).get_coin()
