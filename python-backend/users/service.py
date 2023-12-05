@@ -49,8 +49,9 @@ class WalletController(View):
         try:
             user_address = request.GET.get('user_address')
             wallets = User(user_address).get_wallet()
-            wallet_list = [{'coin': wallet.coin.name,
-                            'value': wallet.value} for wallet in wallets]
+            print("wallets", wallets)
+            wallet_list = [{'coin': wallet['coin']['name'],
+                            'value': wallet['value']} for wallet in wallets]
             return JsonResponse({'wallets': wallet_list}, status=200)
 
         except Exception as error:

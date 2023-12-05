@@ -14,16 +14,20 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.urls import path
 from django.contrib import admin
 from django.urls import path, include
+from market.service import PriceConsumer
+
+websocket_urlpatterns = [
+    path('ws/price/', PriceConsumer.as_asgi()),
+]
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('market/', include('market.urls')),
-    path('users/', include('users.urls')),
-    path('transactions/', include('transactions.urls')),
+    path('backend/admin/', admin.site.urls),
+    path('backend/market/', include('market.urls')),
+    path('backend/users/', include('users.urls')),
+    path('backend/transactions/', include('transactions.urls')),
 ]
-from market.urls import websocket_urlpatterns
-urlpatterns += [
-    path('ws/', include(websocket_urlpatterns)),
-]
+
+urlpatterns += websocket_urlpatterns

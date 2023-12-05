@@ -6,5 +6,5 @@ urlpatterns = [
     path('coin/', CoinController.as_view(), name='coin'),
 ]
 websocket_urlpatterns = [
-    re_path(r'ws/price/$', PriceConsumer.as_asgi()),
+    re_path(r"ws/price/", PriceConsumer.as_asgi()),
 ]

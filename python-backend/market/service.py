@@ -53,7 +53,14 @@ class CoinController(View):
 class PriceConsumer(AsyncWebsocketConsumer):
     async def connect(self):
         await self.accept()
+
         while True:
             price_bid, price_ask = get_best_prices(1)
             await self.send(text_data=json.dumps({'price_bid': price_bid, 'price_ask': price_ask}))
-            await asyncio.sleep(1) 
+            await asyncio.sleep(1)
+
+    async def disconnect(self, close_code):
+        pass
+
+    async def receive(self, text_data):
+        pass
