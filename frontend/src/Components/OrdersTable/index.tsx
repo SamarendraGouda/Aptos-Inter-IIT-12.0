@@ -2,17 +2,11 @@ import React from "react";
 import styles from "./index.module.css";
 import { Table } from "antd";
 import type { ColumnsType, TableProps } from "antd/es/table";
+import explorer from "../../Assets/redirect.svg";
 
 enum Sides {
   LONG = "LONG",
   SHORT = "SHORT",
-}
-
-enum Types {
-  MARKET = "Market",
-  LIMIT = "Limit",
-  STOP = "Stop",
-  STOP_LIMIT = "Stop Limit",
 }
 
 interface DataType {
@@ -20,13 +14,13 @@ interface DataType {
   time: string;
   logo?: any;
   name: string;
+  amount: number;
   price: string;
-  type: Types;
+  filled: string;
+  size: string;
   side: Sides;
-  high_24h: string;
-  low_24h: string;
-  volume_24h: string;
-  openInterest: string;
+  margin: string;
+  leverage: string;
 }
 
 const BITCOIN_LOGO =
@@ -52,10 +46,6 @@ const columns: ColumnsType<DataType> = [
     ),
   },
   {
-    title: "Type",
-    dataIndex: "type",
-  },
-  {
     title: "Side",
     dataIndex: "side",
     render: (text, record) => (
@@ -65,20 +55,27 @@ const columns: ColumnsType<DataType> = [
     ),
   },
   {
-    title: "Size",
-    dataIndex: "volume_24h",
+    title: "Filled/Size",
+    dataIndex: "size",
+    render: (text, record) => (
+      <div className={styles.tableItem}>
+        <span>{record.filled}</span>
+        <span>/</span>
+        <span>{text}</span>
+      </div>
+    ),
   },
   {
     title: "Price",
-    dataIndex: "openInterest",
+    dataIndex: "price",
   },
   {
-    title: "Trade Value",
-    dataIndex: "openInterest",
+    title: "Margin",
+    dataIndex: "margin",
   },
   {
-    title: "Fees",
-    dataIndex: "openInterest",
+    title: "Leverage",
+    dataIndex: "leverage",
   },
 ];
 
@@ -89,13 +86,12 @@ const data = [
     logo: BITCOIN_LOGO,
     name: "BTC/USDC",
     price: "2058.8",
-    type: Types.MARKET,
+    amount: 200,
+    filled: "205.8",
+    size: "215.8",
     side: Sides.LONG,
-    change_24h: "+3.27%",
-    high_24h: "2059.0",
-    low_24h: "2058.8",
-    volume_24h: "$1.80M",
-    openInterest: "$179.0M",
+    margin: "205.8",
+    leverage: "10x",
   },
   {
     key: "2",
@@ -103,55 +99,12 @@ const data = [
     logo: ETHEREUM_LOGO,
     name: "ETH/USDC",
     price: "2058.8",
-    type: Types.MARKET,
-    side: Sides.LONG,
-    change_24h: "-3.27%",
-    high_24h: "2059.0",
-    low_24h: "2058.8",
-    volume_24h: "$1.80M",
-    openInterest: "$179.0M",
-  },
-  {
-    key: "3",
-    time: "2021-04-01 12:00:00",
-    logo: TETHER_LOGO,
-    name: "USDT/USDC",
-    price: "2058.8",
-    type: Types.MARKET,
-    side: Sides.LONG,
-    change_24h: "+3.27%",
-    high_24h: "2059.0",
-    low_24h: "2058.8",
-    volume_24h: "$1.80M",
-    openInterest: "$179.0M",
-  },
-  {
-    key: "1",
-    time: "2021-04-01 12:00:00",
-    logo: BITCOIN_LOGO,
-    name: "BTC/USDC",
-    price: "2058.8",
-    type: Types.MARKET,
+    amount: 200,
+    filled: "205.8",
+    size: "215.8",
     side: Sides.SHORT,
-    change_24h: "+3.27%",
-    high_24h: "2059.0",
-    low_24h: "2058.8",
-    volume_24h: "$1.80M",
-    openInterest: "$179.0M",
-  },
-  {
-    key: "2",
-    time: "2021-04-01 12:00:00",
-    logo: ETHEREUM_LOGO,
-    name: "ETH/USDC",
-    price: "2058.8",
-    type: Types.MARKET,
-    side: Sides.LONG,
-    change_24h: "-3.27%",
-    high_24h: "2059.0",
-    low_24h: "2058.8",
-    volume_24h: "$1.80M",
-    openInterest: "$179.0M",
+    margin: "205.8",
+    leverage: "10x",
   },
   {
     key: "3",
@@ -159,13 +112,12 @@ const data = [
     logo: TETHER_LOGO,
     name: "USDT/USDC",
     price: "2058.8",
-    type: Types.MARKET,
+    amount: 200,
+    filled: "205.8",
+    size: "215.8",
     side: Sides.LONG,
-    change_24h: "+3.27%",
-    high_24h: "2059.0",
-    low_24h: "2058.8",
-    volume_24h: "$1.80M",
-    openInterest: "$179.0M",
+    margin: "205.8",
+    leverage: "10x",
   },
 ];
 
@@ -178,7 +130,7 @@ const onChange: TableProps<DataType>["onChange"] = (
   console.log("params", pagination, filters, sorter, extra);
 };
 
-const TradesTable: React.FC = () => (
+const OrdersTable: React.FC = () => (
   <Table
     columns={columns}
     dataSource={data}
@@ -187,4 +139,4 @@ const TradesTable: React.FC = () => (
   />
 );
 
-export default TradesTable;
+export default OrdersTable;
