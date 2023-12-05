@@ -8,10 +8,13 @@ from users.models import User
 from utils.maths import calculate_liquidation_price, calculate_margin
 from market.models import Coin
 from econia.market import place_limit_order, place_market_order
+from utils.traderwallet import TraderWallet
+
 
 class Side():
     BID = 0
     ASK = 1
+
 
 @method_decorator(csrf_exempt, name='dispatch')
 class TransactionController(View):
@@ -30,23 +33,27 @@ class TransactionController(View):
             is_long = True if type == 'LONG' else False
             if not type or not state or not from_user or not trade_amount or not trade_price or not sell_coin or not buy_coin or not transaction_class or not leverage:
                 return JsonResponse({'error': 'Missing required fields'}, status=400)
-            margin = calculate_margin(float(trade_amount), float(trade_price), float(leverage))
+            margin = calculate_margin(
+                float(trade_amount), float(trade_price), float(leverage))
             liquidation_price = calculate_liquidation_price(
                 float(trade_amount), float(trade_price), float(leverage), is_long)
             sell_coin_instance = Coin(sell_coin).get_coin()
             buy_coin_instance = Coin(buy_coin).get_coin()
             if transaction_class == Transaction.TransactionClass.MARKET:
                 if type == Transaction.TransactionType.LONG:
-                    place_market_order(buy_coin_instance['address'],sell_coin_instance['address'],Side.BID,1,int(trade_amount))
+                    place_market_order(
+                        Side.BID, TraderWallet, 1, int(trade_amount))
                 elif type == Transaction.TransactionType.SHORT:
                     place_market_order(
-                        buy_coin_instance['address'], sell_coin_instance['address'], Side.ASK, 1, int(trade_amount))
+                        Side.BID, TraderWallet, 1, int(trade_amount))
             elif transaction_class == Transaction.TransactionClass.LIMIT:
                 if type == Transaction.TransactionType.LONG:
-                    place_limit_order(Side.BID,1,int(trade_amount),int(trade_price),buy_coin_instance['address'],sell_coin_instance['address'])
+                    place_limit_order(Side.BID, TraderWallet, 1, int(trade_amount), int(
+                        trade_price))
                 elif type == Transaction.TransactionType.SHORT:
-                    place_limit_order(Side.ASK,1,int(trade_amount),int(trade_price),buy_coin_instance['address'],sell_coin_instance['address'])
-                    
+                    place_limit_order(Side.BID, TraderWallet, 1, int(trade_amount), int(
+                        trade_price))
+
             transaction = Transaction(type, state, from_user, trade_amount, trade_price,
                                       sell_coin, buy_coin, liquidation_price, transaction_class, leverage, margin).add_transaction()
             return JsonResponse({'success': f'Transaction {transaction.type} created successfully'}, status=201)

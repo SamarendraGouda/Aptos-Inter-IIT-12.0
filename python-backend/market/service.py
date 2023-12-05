@@ -4,6 +4,9 @@ from django.utils.decorators import method_decorator
 from django.views import View
 import json
 from .models import Coin
+import asyncio
+from channels.generic.websocket import AsyncWebsocketConsumer
+from econia.market import get_best_prices
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -45,3 +48,12 @@ class CoinController(View):
 
         except Exception as error:
             return JsonResponse({'error': f'Error getting all coins: {str(error)}'}, status=500)
+
+
+class PriceConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
+        await self.accept()
+        while True:
+            price_bid, price_ask = get_best_prices(1)
+            await self.send(text_data=json.dumps({'price_bid': price_bid, 'price_ask': price_ask}))
+            await asyncio.sleep(1) 
