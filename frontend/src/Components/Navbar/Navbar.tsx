@@ -46,11 +46,14 @@ const Navbar = () => {
         <div className={styles.navItem}>
           <Link to="/trade">Trade</Link>
         </div>
-        <div className={styles.navItem}>
+        {/* <div className={styles.navItem}>
           <Link to="/earn">Earn</Link>
-        </div>
+        </div> */}
         <div className={styles.navItem}>
           <Link to="/portfolio">Portfolio</Link>
+        </div>
+        <div className={styles.navItem}>
+          <Link to="/history">History</Link>
         </div>
       </div>
       <div className={styles.navListRight}>

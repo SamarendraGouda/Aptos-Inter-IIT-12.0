@@ -24,7 +24,7 @@ const TETHER_LOGO =
 
 const columns: ColumnsType<DataType> = [
   {
-    title: "Trading Pair",
+    title: "Asset",
     dataIndex: "name",
     render: (text, record) => (
       <div className={styles.tableItem}>
@@ -63,13 +63,13 @@ const columns: ColumnsType<DataType> = [
     // sortDirections: ["descend"],
   },
   {
-    title: "Price",
+    title: "Total",
     dataIndex: "price",
     defaultSortOrder: "descend",
     // sorter: (a, b) => a.age - b.age,
   },
   {
-    title: "24H Change",
+    title: "Pair",
     dataIndex: "change_24h",
     filters: [
       {
@@ -84,7 +84,7 @@ const columns: ColumnsType<DataType> = [
     // onFilter: (value: string, record) => record.address.indexOf(value) === 0,
   },
   {
-    title: "24H High",
+    title: "In Position",
     dataIndex: "high_24h",
     filters: [
       {
@@ -99,7 +99,7 @@ const columns: ColumnsType<DataType> = [
     // onFilter: (value: string, record) => record.address.indexOf(value) === 0,
   },
   {
-    title: "24H Low",
+    title: "In Liquidity",
     dataIndex: "low_24h",
     filters: [
       {
@@ -114,48 +114,8 @@ const columns: ColumnsType<DataType> = [
     // onFilter: (value: string, record) => record.address.indexOf(value) === 0,
   },
   {
-    title: "24H Volume",
+    title: "In Order",
     dataIndex: "volume_24h",
-    filters: [
-      {
-        text: "London",
-        value: "London",
-      },
-      {
-        text: "New York",
-        value: "New York",
-      },
-    ],
-    // onFilter: (value: string, record) => record.address.indexOf(value) === 0,
-  },
-  {
-    title: "Open Interest",
-    dataIndex: "openInterest",
-    filters: [
-      {
-        text: "London",
-        value: "London",
-      },
-      {
-        text: "New York",
-        value: "New York",
-      },
-    ],
-    // onFilter: (value: string, record) => record.address.indexOf(value) === 0,
-  },
-  {
-    title: "Action",
-    dataIndex: "name",
-    render: (text, record) => (
-      <button
-        className={styles.tradeButton}
-        onClick={() => {
-          console.log(record);
-        }}
-      >
-        Trade
-      </button>
-    ),
     filters: [
       {
         text: "London",
@@ -217,12 +177,15 @@ const onChange: TableProps<DataType>["onChange"] = (
 
 const AssetTable = () => {
   return (
-    <Table
-      columns={columns}
-      dataSource={data}
-      onChange={onChange}
-      className={styles.table}
-    />
+    <div className={styles.tableContainer}>
+      <div className={styles.tableTitle}>Asset Allocation</div>
+      <Table
+        columns={columns}
+        dataSource={data}
+        onChange={onChange}
+        className={styles.table}
+      />
+    </div>
   );
 };
 

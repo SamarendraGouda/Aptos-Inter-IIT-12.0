@@ -1,14 +1,27 @@
 import React from "react";
-import styles from "./Table.module.css";
+import styles from "./index.module.css";
 import { Table } from "antd";
 import type { ColumnsType, TableProps } from "antd/es/table";
 
+enum Sides {
+  LONG,
+  SHORT,
+}
+
+enum Types {
+  MARKET = "Market",
+  LIMIT = "Limit",
+  STOP = "Stop",
+  STOP_LIMIT = "Stop Limit",
+}
+
 interface DataType {
   key: React.Key;
+  time: string;
   logo?: any;
   name: string;
   price: string;
-  change_24h: string;
+  type: Types;
   high_24h: string;
   low_24h: string;
   volume_24h: string;
@@ -24,7 +37,11 @@ const TETHER_LOGO =
 
 const columns: ColumnsType<DataType> = [
   {
-    title: "Trading Pair",
+    title: "Timestamp",
+    dataIndex: "time",
+  },
+  {
+    title: "Pair",
     dataIndex: "name",
     render: (text, record) => (
       <div className={styles.tableItem}>
@@ -34,60 +51,39 @@ const columns: ColumnsType<DataType> = [
     ),
   },
   {
-    title: "Price",
-    dataIndex: "price",
+    title: "Type",
+    dataIndex: "type",
   },
   {
-    title: "24H Change",
-    dataIndex: "change_24h",
-    render: (text, record) => (
-      <div
-        className={
-          text.includes("+") ? styles.changePositive : styles.changeNegative
-        }
-      >
-        <span>{text}</span>
-      </div>
-    ),
-  },
-  {
-    title: "24H High",
-    dataIndex: "high_24h",
-  },
-  {
-    title: "24H Low",
+    title: "Side",
     dataIndex: "low_24h",
   },
   {
-    title: "24H Volume",
+    title: "Size",
     dataIndex: "volume_24h",
   },
   {
-    title: "Open Interest",
+    title: "Price",
     dataIndex: "openInterest",
   },
   {
-    title: "Action",
-    dataIndex: "name",
-    render: (text, record) => (
-      <button
-        className={styles.tradeButton}
-        onClick={() => {
-          console.log(record);
-        }}
-      >
-        Trade
-      </button>
-    ),
+    title: "Trade Value",
+    dataIndex: "openInterest",
+  },
+  {
+    title: "Fees",
+    dataIndex: "openInterest",
   },
 ];
 
 const data = [
   {
     key: "1",
+    time: "2021-04-01 12:00:00",
     logo: BITCOIN_LOGO,
     name: "BTC/USDC",
     price: "2058.8",
+    type: Types.MARKET,
     change_24h: "+3.27%",
     high_24h: "2059.0",
     low_24h: "2058.8",
@@ -96,9 +92,11 @@ const data = [
   },
   {
     key: "2",
+    time: "2021-04-01 12:00:00",
     logo: ETHEREUM_LOGO,
     name: "ETH/USDC",
     price: "2058.8",
+    type: Types.MARKET,
     change_24h: "-3.27%",
     high_24h: "2059.0",
     low_24h: "2058.8",
@@ -107,9 +105,11 @@ const data = [
   },
   {
     key: "3",
+    time: "2021-04-01 12:00:00",
     logo: TETHER_LOGO,
     name: "USDT/USDC",
     price: "2058.8",
+    type: Types.MARKET,
     change_24h: "+3.27%",
     high_24h: "2059.0",
     low_24h: "2058.8",
@@ -118,9 +118,11 @@ const data = [
   },
   {
     key: "1",
+    time: "2021-04-01 12:00:00",
     logo: BITCOIN_LOGO,
     name: "BTC/USDC",
     price: "2058.8",
+    type: Types.MARKET,
     change_24h: "+3.27%",
     high_24h: "2059.0",
     low_24h: "2058.8",
@@ -129,9 +131,11 @@ const data = [
   },
   {
     key: "2",
+    time: "2021-04-01 12:00:00",
     logo: ETHEREUM_LOGO,
     name: "ETH/USDC",
     price: "2058.8",
+    type: Types.MARKET,
     change_24h: "-3.27%",
     high_24h: "2059.0",
     low_24h: "2058.8",
@@ -140,9 +144,11 @@ const data = [
   },
   {
     key: "3",
+    time: "2021-04-01 12:00:00",
     logo: TETHER_LOGO,
     name: "USDT/USDC",
     price: "2058.8",
+    type: Types.MARKET,
     change_24h: "+3.27%",
     high_24h: "2059.0",
     low_24h: "2058.8",
@@ -160,7 +166,7 @@ const onChange: TableProps<DataType>["onChange"] = (
   console.log("params", pagination, filters, sorter, extra);
 };
 
-const DashboardTable: React.FC = () => (
+const TradesTable: React.FC = () => (
   <Table
     columns={columns}
     dataSource={data}
@@ -169,4 +175,4 @@ const DashboardTable: React.FC = () => (
   />
 );
 
-export default DashboardTable;
+export default TradesTable;

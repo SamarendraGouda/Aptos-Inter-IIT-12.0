@@ -17,6 +17,19 @@ code {
   border-radius: 8px !important;
 }
 
+.ant-modal-content ul {
+  background: #191b35 !important;
+  border-radius: 8px !important;
+}
+
+.ant-menu-item-only-child span {
+  color: #ffffff !important;
+}
+
+.ant-menu-item-only-child button {
+  background: #191b35 !important;
+}
+
 .wallet-button {
   background: #191b35 !important;
   color: #ffffff !important;
@@ -26,6 +39,11 @@ code {
   font-size: 16px !important;
   font-weight: 500 !important;
   padding: 10px 20px !important;
+}
+
+.wallet-modal-title {
+  background: #191b35 !important;
+  color: #ffffff !important;
 }
 
 .wallet-button:hover {

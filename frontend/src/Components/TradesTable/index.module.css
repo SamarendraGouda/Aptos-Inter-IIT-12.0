@@ -1,8 +1,9 @@
 .table {
-  padding: 16px 3%;
+  width: 100%;
+  padding: 16px 0;
   border-radius: 0px !important;
 }
-table th {
+.table th {
   background: #16182e !important;
   color: #a9a9b0 !important;
   border-radius: 0px !important;
@@ -44,7 +45,7 @@ table th {
 
 .tableItem {
   display: flex;
-  width: 40%;
+  width: 50%;
   justify-content: center;
   align-items: center;
   gap: 10px;
@@ -62,32 +63,16 @@ table th {
   border-radius: 4px !important;
   border: none !important;
   display: flex !important;
-  padding: 4px 16px !important;
+  padding: 8px 16px !important;
   align-items: center !important;
   gap: 10px !important;
+  cursor: pointer;
 }
 
-.tableContainer {
-  border-radius: 8px;
-  background: #16182e;
-  margin: 0 3%;
-  padding: 20px 0;
-
+.changePositive {
+  color: #0ecc83;
 }
 
-.tableTitle {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  margin: 0 4% 0 4%;
-  padding-bottom: 20px ;
-  width: inherit;
-  color: #fff;
-  text-align: right;
-  font-family: Inter-Tight;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 500;
-  border-bottom: 2px solid #23263b;
+.changeNegative {
+  color: #fa3c58;
 }

@@ -5,6 +5,7 @@ import NotFound from "./Pages/NotFound/NotFound";
 import Trade from "./Pages/Trade/Trade";
 import Portfolio from "./Pages/Portfolio/Portfolio";
 import Earn from "./Pages/Earn";
+import History from "./Pages/History";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/trade" element={<Trade />} />
           <Route path="/earn" element={<Earn />} />
           <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/history" element={<History />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
