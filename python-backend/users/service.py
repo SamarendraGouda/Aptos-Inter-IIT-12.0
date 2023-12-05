@@ -64,8 +64,8 @@ class TransactionController(View):
         try:
             user_address = request.GET.get('user_address')
             transactions = User(user_address).transaction_history()
-            transaction_list = [{'coin': transaction.coin.name, 'amount': transaction.amount,
-                                 'type': transaction.type, 'timestamp': transaction.timestamp} for transaction in transactions]
+            transaction_list = [{'coin': transaction['coin']['name'], 'amount': transaction['value'],
+                                 'type': transaction['transaction_type'], 'timestamp': transaction['timestamp']} for transaction in transactions]
             return JsonResponse({'transactions': transaction_list}, status=200)
 
         except Exception as error:

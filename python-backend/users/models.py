@@ -114,7 +114,7 @@ class User:
         try:
             existing_user = self.get_user()
             if existing_user:
-                return mongo_database.db.users.find({'user': self.address})
+                return existing_user['wallet_history']
             else:
                 raise Exception("User not found")
         except Exception as error:

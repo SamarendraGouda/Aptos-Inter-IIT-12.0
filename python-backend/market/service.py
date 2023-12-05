@@ -57,7 +57,7 @@ class PriceConsumer(AsyncWebsocketConsumer):
         while True:
             price_bid, price_ask = get_best_prices(1)
             await self.send(text_data=json.dumps({'price_bid': price_bid, 'price_ask': price_ask}))
-            await asyncio.sleep(1)
+            await asyncio.sleep(0.01)
 
     async def disconnect(self, close_code):
         pass
