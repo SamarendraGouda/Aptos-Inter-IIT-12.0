@@ -1,6 +1,6 @@
 from os import environ
 from typing import Optional, Tuple
-
+from . import ed25519
 from aptos_sdk.account import Account
 from aptos_sdk.account_address import AccountAddress
 from aptos_sdk.bcs import Serializer, encoder
@@ -42,8 +42,49 @@ COIN_TYPE_EAPT = f"{FAUCET_ADDR}::example_apt::ExampleAPT"
 COIN_TYPE_EUSDC = f"{FAUCET_ADDR}::example_usdc::ExampleUSDC"
 NODE_URL = "http://0.0.0.0:8080/v1"
 FAUCET_URL = "http://0.0.0.0:8081"
+ACCOUNT = Account.generate()
+TRADING_ACCOUNT_ADDRESS = ACCOUNT.address()
 
 txn_hash_buffer = []
+
+#Funding Trading Account on local server
+def fund_trading_account():
+    base_wholes: int = 10
+    quote_wholes: int = 10_000
+    rest_client = RestClient(NODE_URL)
+    faucet_client = FaucetClient(FAUCET_URL, rest_client)
+    faucet_client.fund_account(ACCOUNT.address().hex(), 1 * (10**8))
+    fund_APT(ACCOUNT, base_wholes * 2)
+    fund_USDC(ACCOUNT, quote_wholes * 2)
+
+#Local functions for local server
+def fund_APT(account: Account, wholes: int):
+    calldata = EntryFunction(
+        ModuleId.from_str(f"{FAUCET_ADDR}::faucet"),  # module
+        "mint",  # funcname
+        [TypeTag(StructTag.from_str(COIN_TYPE_EAPT))],  # generics
+        [encoder(wholes * (10**8), Serializer.u64)],  # arguments
+    )
+
+    return exec_txn(
+        EconiaClient(NODE_URL, ECONIA_ADDR, account),
+        calldata,
+        f"Mint {wholes/1.0} eAPT (yet to be deposited)",
+    )
+
+#Local functions for local server
+def fund_USDC(account: Account, wholes: int):
+    calldata = EntryFunction(
+        ModuleId.from_str(f"{FAUCET_ADDR}::faucet"),  # module
+        "mint",  # funcname
+        [TypeTag(StructTag.from_str(COIN_TYPE_EUSDC))],  # generics
+        [encoder(wholes * (10**6), Serializer.u64)],  # arguments
+    )
+    return exec_txn(
+        EconiaClient(NODE_URL, ECONIA_ADDR, account),
+        calldata,
+        f"Mint {wholes/1.0} eUSDC (yet to be deposited)",
+    )
 
 def create_market(BASE_COIN: str, QUOTE_COIN: str, DEF_COIN: str, lot_size: int, tick_size: int, min_size: int,  account: Account) ->int:
     viewer = EconiaViewer(NODE_URL, ECONIA_ADDR)
