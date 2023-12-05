@@ -2,6 +2,8 @@ import React from "react";
 import styles from "./index.module.css";
 import Navbar from "../../Components/Navbar/Navbar";
 import TradesTable from "../../Components/TradesTable";
+import DepositsTable from "../../Components/DepositesTable";
+import OrdersTable from "../../Components/OrdersTable";
 
 enum Tabs {
   TRADES,
@@ -54,7 +56,10 @@ const History = () => {
             Withdrawals
           </div>
         </div>
-        <TradesTable />
+        {selectedTab === Tabs.TRADES && <TradesTable />}
+        {selectedTab === Tabs.ORDERS && <OrdersTable />}
+        {selectedTab === Tabs.DEPOSITS && <DepositsTable />}
+        {selectedTab === Tabs.WITHDRAWALS && <DepositsTable />}
       </div>
     </div>
   );
