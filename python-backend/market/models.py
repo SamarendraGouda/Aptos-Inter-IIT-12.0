@@ -12,15 +12,14 @@ class Coin():
             if existing_coin:
                 return existing_coin
             else:
-                raise Exception("Coin not found")
+                return None
         except Exception as error:
             print("Error getting coin:", error)
             raise error
 
     def add_coin(self):
         try:
-            existing_coin = mongo_database.db.coins.find_one(
-                {'symbol': self.symbol})
+            existing_coin = self.get_coin()
             if existing_coin:
                 raise Exception("Coin already exists")
             else:
@@ -45,8 +44,7 @@ class Coin():
 
     def delete_coin(self):
         try:
-            existing_coin = mongo_database.db.coins.find_one(
-                {'name': self.name})
+            existing_coin = self.get_coin()
             if existing_coin:
                 mongo_database.db.coins.delete_one(
                     {'name': self.name})
