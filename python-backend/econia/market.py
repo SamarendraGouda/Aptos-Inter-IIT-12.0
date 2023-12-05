@@ -720,5 +720,3 @@ def dump_txns():
         txn_hash_buffer = []
     else:
         print("  * No transactions were executed.")
-
-account_t = setup_new_account(viewer, faucet_client, 1)
