@@ -26,6 +26,7 @@
   font-style: normal;
   font-weight: 600;
   padding: 20px;
+  cursor: pointer;
 }
 
 .tabSelected {
@@ -37,4 +38,5 @@
   font-weight: 600;
   padding: 20px;
   border-bottom: 4px solid #6802dd;
+  cursor: pointer;
 }

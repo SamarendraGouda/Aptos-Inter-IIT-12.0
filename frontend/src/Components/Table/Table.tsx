@@ -32,41 +32,10 @@ const columns: ColumnsType<DataType> = [
         <span>{text}</span>
       </div>
     ),
-    filters: [
-      {
-        text: "Joe",
-        value: "Joe",
-      },
-      {
-        text: "Jim",
-        value: "Jim",
-      },
-      {
-        text: "Submenu",
-        value: "Submenu",
-        children: [
-          {
-            text: "Green",
-            value: "Green",
-          },
-          {
-            text: "Black",
-            value: "Black",
-          },
-        ],
-      },
-    ],
-    // specify the condition of filtering result
-    // here is that finding the name started with `value`
-    // onFilter: (value: string, record) => record.name.indexOf(value) === 0,
-    // sorter: (a, b) => a.name.length - b.name.length,
-    // sortDirections: ["descend"],
   },
   {
     title: "Price",
     dataIndex: "price",
-    defaultSortOrder: "descend",
-    // sorter: (a, b) => a.age - b.age,
   },
   {
     title: "24H Change",
@@ -80,77 +49,22 @@ const columns: ColumnsType<DataType> = [
         <span>{text}</span>
       </div>
     ),
-    filters: [
-      {
-        text: "London",
-        value: "London",
-      },
-      {
-        text: "New York",
-        value: "New York",
-      },
-    ],
-    // onFilter: (value: string, record) => record.address.indexOf(value) === 0,
   },
   {
     title: "24H High",
     dataIndex: "high_24h",
-    filters: [
-      {
-        text: "London",
-        value: "London",
-      },
-      {
-        text: "New York",
-        value: "New York",
-      },
-    ],
-    // onFilter: (value: string, record) => record.address.indexOf(value) === 0,
   },
   {
     title: "24H Low",
     dataIndex: "low_24h",
-    filters: [
-      {
-        text: "London",
-        value: "London",
-      },
-      {
-        text: "New York",
-        value: "New York",
-      },
-    ],
-    // onFilter: (value: string, record) => record.address.indexOf(value) === 0,
   },
   {
     title: "24H Volume",
     dataIndex: "volume_24h",
-    filters: [
-      {
-        text: "London",
-        value: "London",
-      },
-      {
-        text: "New York",
-        value: "New York",
-      },
-    ],
-    // onFilter: (value: string, record) => record.address.indexOf(value) === 0,
   },
   {
     title: "Open Interest",
     dataIndex: "openInterest",
-    filters: [
-      {
-        text: "London",
-        value: "London",
-      },
-      {
-        text: "New York",
-        value: "New York",
-      },
-    ],
-    // onFilter: (value: string, record) => record.address.indexOf(value) === 0,
   },
   {
     title: "Action",
@@ -165,17 +79,6 @@ const columns: ColumnsType<DataType> = [
         Trade
       </button>
     ),
-    filters: [
-      {
-        text: "London",
-        value: "London",
-      },
-      {
-        text: "New York",
-        value: "New York",
-      },
-    ],
-    // onFilter: (value: string, record) => record.address.indexOf(value) === 0,
   },
 ];
 

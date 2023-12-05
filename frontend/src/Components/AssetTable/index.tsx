@@ -24,7 +24,7 @@ const TETHER_LOGO =
 
 const columns: ColumnsType<DataType> = [
   {
-    title: "Trading Pair",
+    title: "Asset",
     dataIndex: "name",
     render: (text, record) => (
       <div className={styles.tableItem}>

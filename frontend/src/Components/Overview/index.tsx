@@ -10,12 +10,11 @@ enum Tab {
   APT = "APT",
 }
 
-const Overview = () => {
-  const AptosLogo =
-    "https://s2.coinmarketcap.com/static/img/coins/64x64/21794.png";
-  const UsdcLogo =
-    "https://s2.coinmarketcap.com/static/img/coins/64x64/3408.png";
+export const AptosLogo =
+  "https://s2.coinmarketcap.com/static/img/coins/64x64/21794.png";
+const UsdcLogo = "https://s2.coinmarketcap.com/static/img/coins/64x64/3408.png";
 
+const Overview = () => {
   const [selectedTab, setSelectedTab] = useState<Tab>(Tab.USDC);
 
   const handleChangeTab = (tab: Tab) => {
