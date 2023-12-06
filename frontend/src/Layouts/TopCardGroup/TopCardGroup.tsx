@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./TopCardGroup.module.css";
-import TopCard from "./../../Components/TopCard/TopCard";
 
+import TopCard from "./../../Components/TopCard/TopCard";
 import TopGainersIcon from "./../../Assets/badge_gainer.svg";
 import TopVolumeIcon from "./../../Assets/badge_volume.svg";
 import TopApyIcon from "./../../Assets/badge_apy.svg";

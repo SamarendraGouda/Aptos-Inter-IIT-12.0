@@ -1,10 +1,18 @@
-import React, { useEffect, useState } from "react";
 import styles from "./index.module.css";
 import heroImage from "./../../Assets/hero.png";
 import ButtonLoader from "../ButtonLoader";
 
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 const Hero = () => {
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
+
+  const handleButtonClick = () => {
+    navigate("/trade");
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -12,10 +20,11 @@ const Hero = () => {
       setLoading(false);
     }, 1000);
   }, []);
+
   return (
     <div className={styles.container}>
       {loading ? (
-        <ButtonLoader size={50}/>
+        <ButtonLoader size={50} />
       ) : (
         <div className={styles.topContainer}>
           <img src={heroImage} alt="" />
@@ -27,7 +36,7 @@ const Hero = () => {
               Margin Trading. Our instant settlement algorithm can handle
               settlement of multiple positions within seconds.
             </div>
-            <button>Trade Now</button>
+            <button onClick={handleButtonClick}>Trade Now</button>
           </div>
         </div>
       )}

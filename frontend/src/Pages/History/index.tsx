@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import styles from "./index.module.css";
+
+import api from "../../api/api";
 import Navbar from "../../Components/Navbar/Navbar";
 import TradesTable from "../../Components/TradesTable";
 import DepositsTable from "../../Components/DepositesTable";
 import OrdersTable from "../../Components/OrdersTable";
-import api from "../../api/api";
+
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
 enum Tabs {
@@ -39,15 +41,14 @@ const History = () => {
     (async () => {
       try {
         const res = await getWalletHistory();
-        console.log(res);
         setWalletHistory(res?.data?.transactions);
-        //filter deposit history
+
         const depositHistory = res?.data?.transactions.filter(
           (transaction: any) => transaction?.type === "Credit"
         );
         depositHistory.reverse();
         setWalletDepositeHistory(depositHistory);
-        //filter withdrawal history
+
         const withdrawalHistory = res?.data?.transactions.filter(
           (transaction: any) => transaction?.type === "Debit"
         );
