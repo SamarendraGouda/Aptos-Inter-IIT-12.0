@@ -1,10 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
 import styles from "./TradeHeader.module.css";
+import { APT_LOGO } from "../../constants/constants";
 
 //@ts-ignore
 const TradeHeader = ({ bidPrice, askPrice }) => {
-  const APT_LOGO =
-    "https://s2.coinmarketcap.com/static/img/coins/64x64/21794.png";
   //@ts-ignore
   const calcMarketPrice = (bid, ask) => {
     if (bid === null) {

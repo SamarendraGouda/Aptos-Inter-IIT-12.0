@@ -1,6 +1,11 @@
 import React from "react";
 import styles from "./Table.module.css";
 import { Table } from "antd";
+import {
+  BITCOIN_LOGO,
+  ETHEREUM_LOGO,
+  TETHER_LOGO,
+} from "../../constants/constants";
 import type { ColumnsType, TableProps } from "antd/es/table";
 
 interface DataType {
@@ -14,13 +19,6 @@ interface DataType {
   volume_24h: string;
   openInterest: string;
 }
-
-const BITCOIN_LOGO =
-  "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png";
-const ETHEREUM_LOGO =
-  "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png";
-const TETHER_LOGO =
-  "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png";
 
 const columns: ColumnsType<DataType> = [
   {

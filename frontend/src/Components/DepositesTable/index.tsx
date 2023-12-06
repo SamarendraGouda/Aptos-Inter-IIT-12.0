@@ -1,8 +1,11 @@
 import React from "react";
 import styles from "./index.module.css";
-import { Table } from "antd";
-import type { ColumnsType, TableProps } from "antd/es/table";
+
 import explorer from "../../Assets/redirect.svg";
+
+import { Table } from "antd";
+import { APT_LOGO, USDC_LOGO } from "../../constants/constants";
+import type { ColumnsType, TableProps } from "antd/es/table";
 
 enum Status {
   SUCCESS = "SUCCESS",
@@ -28,13 +31,8 @@ interface DataType {
 }
 
 type DepositsTableProps = {
-  data: DataType[]; // Assuming DataType is the type for the data array
+  data: DataType[];
 };
-
-const USDC_LOGO =
-  "https://s2.coinmarketcap.com/static/img/coins/64x64/3408.png";
-const APT_LOGO =
-  "https://s2.coinmarketcap.com/static/img/coins/64x64/21794.png";
 
 const columns: ColumnsType<DataType> = [
   {
@@ -55,17 +53,6 @@ const columns: ColumnsType<DataType> = [
     title: "Amount",
     dataIndex: "amount",
   },
-  // {
-  //   title: "Transaction Status",
-  //   dataIndex: "status",
-  //   render: (text, record) => (
-  //     <div
-  //       className={text === Status.SUCCESS ? styles.sideLong : styles.sideShort}
-  //     >
-  //       <span>{text}</span>
-  //     </div>
-  //   ),
-  // },
   {
     title: "Explorer",
     dataIndex: "time",

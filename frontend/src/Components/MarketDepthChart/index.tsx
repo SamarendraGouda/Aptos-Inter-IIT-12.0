@@ -1,11 +1,12 @@
-import React, { useState, useRef, useEffect } from "react";
 import styles from "./index.module.css";
+
+import { useState, useRef, useEffect } from "react";
 import { BiSolidUpArrow } from "react-icons/bi";
 import { BiSolidDownArrow } from "react-icons/bi";
+import { orderBookWsUrl } from "../../api/ws";
 
 //@ts-ignore
 const MarketDepthChart = ({ bidPrice, askPrice }) => {
-  const orderBookSocketUrl = "ws://10.81.53.207/backend/ws/order/";
   const orderBookSocketRef = useRef<WebSocket | null>(null);
   const [bidOrders, setBidOrders] = useState([]);
   const [askOrders, setAskOrders] = useState([]);
@@ -29,37 +30,26 @@ const MarketDepthChart = ({ bidPrice, askPrice }) => {
   const askWidth = ask.map((item) => (item / max) * 100);
 
   useEffect(() => {
-    // Connect to the WebSocket server
-    orderBookSocketRef.current = new WebSocket(orderBookSocketUrl);
-
-    // Event listener for when the connection is open
+    orderBookSocketRef.current = new WebSocket(orderBookWsUrl);
     orderBookSocketRef.current.onopen = (event: Event) => {
       console.log("WebSocket connection opened:", event);
     };
 
-    // Event listener for when a message is received from the server
     orderBookSocketRef.current.onmessage = (event: MessageEvent) => {
       const data = JSON.parse(event.data);
       const bidOrders = data.bid_orders;
       const askOrders = data.ask_orders;
       setBidOrders(bidOrders);
       setAskOrders(askOrders);
-
-      // Handle the received data (price_bid and price_ask)
-      console.log("Received data:", data);
     };
 
-    // Event listener for any errors that occur
     orderBookSocketRef.current.onerror = (event: Event) => {
       console.error("WebSocket error:", event);
     };
 
-    // Event listener for when the connection is closed
     orderBookSocketRef.current.onclose = (event: CloseEvent) => {
       console.log("WebSocket connection closed:", event);
     };
-
-    // Clean up the WebSocket connection when the component unmounts
 
     return () => {
       orderBookSocketRef.current?.close();

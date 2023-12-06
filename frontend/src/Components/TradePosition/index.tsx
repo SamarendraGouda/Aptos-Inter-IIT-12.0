@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./index.module.css";
 
 const TradePosition = () => {
@@ -37,7 +36,6 @@ const TradePosition = () => {
             <div className={styles.statValue}>10x</div>
           </div>
           <div className={styles.buttonGroup}>
-          {/* <button className={styles.closePositionButton}>Manage</button> */}
             <button className={styles.closePositionButton}>Close</button>
           </div>
         </div>

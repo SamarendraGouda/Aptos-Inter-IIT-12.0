@@ -1,18 +1,18 @@
+import axios from "axios";
 import React, { useEffect } from "react";
 import styles from "./index.module.css";
-import { Modal } from "antd";
+
 import avatar from "./../../Assets/avatar.svg";
 import copy from "./../../Assets/copy.svg";
 import explorer from "./../../Assets/redirect.svg";
 import close from "./../../Assets/close.svg";
 import petra from "../../Assets/petra.svg";
+
+import { Modal } from "antd";
+import { NODE_URL, PRICE_URL } from "../../constants/constants";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { CoinClient, AptosClient, MaybeHexString } from "aptos";
-import axios from "axios";
 import { AptosLogo } from "../Overview";
-
-const NODE_URL = "https://fullnode.devnet.aptoslabs.com";
-const PRICE_URL = "https://api.binance.com/api/v3/ticker/price?symbol=APTUSDT";
 
 //@ts-ignore
 const BalanceCard = ({ balance }) => {

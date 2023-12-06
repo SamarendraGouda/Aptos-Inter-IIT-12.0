@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./NotFound.module.css";
 import Navbar from "../../Components/Navbar/Navbar";
 

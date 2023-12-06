@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
+import axios from "axios";
 import styles from "./index.module.css";
+import ButtonLoader from "../ButtonLoader";
+import api from "../../api/api";
+import close from "./../../Assets/close.svg";
+
+import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut, Pie } from "react-chartjs-2";
-import ButtonLoader from "../ButtonLoader";
 import { Modal } from "antd";
-import close from "./../../Assets/close.svg";
-import api from "../../api/api";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
-import toast, { Toaster } from "react-hot-toast";
-
-import axios from "axios";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
