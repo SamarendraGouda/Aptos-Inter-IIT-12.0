@@ -17,11 +17,6 @@ Including another URLconf
 from django.urls import path
 from django.contrib import admin
 from django.urls import path, include
-from market.service import PriceConsumer
-
-websocket_urlpatterns = [
-    path('ws/price/', PriceConsumer.as_asgi()),
-]
 
 urlpatterns = [
     path('backend/admin/', admin.site.urls),
@@ -30,4 +25,3 @@ urlpatterns = [
     path('backend/transactions/', include('transactions.urls')),
 ]
 
-urlpatterns += websocket_urlpatterns

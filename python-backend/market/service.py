@@ -6,7 +6,7 @@ import json
 from .models import Coin
 import asyncio
 from channels.generic.websocket import AsyncWebsocketConsumer
-from econia.market import get_best_prices
+from econia.market import get_best_prices, get_price_and_size_of_all_orders
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -57,6 +57,20 @@ class PriceConsumer(AsyncWebsocketConsumer):
         while True:
             price_bid, price_ask = get_best_prices(1)
             await self.send(text_data=json.dumps({'price_bid': price_bid, 'price_ask': price_ask}))
+            await asyncio.sleep(0.01)
+
+    async def disconnect(self, close_code):
+        pass
+
+    async def receive(self, text_data):
+        pass
+class OrderBookConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
+        await self.accept()
+
+        while True:
+            bid_orders, ask_orders = get_price_and_size_of_all_orders(1)
+            await self.send(text_data=json.dumps({'bid_orders': bid_orders, 'ask_orders': ask_orders}))
             await asyncio.sleep(0.01)
 
     async def disconnect(self, close_code):

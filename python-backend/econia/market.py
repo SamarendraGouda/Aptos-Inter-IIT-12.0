@@ -44,8 +44,8 @@ There are several prompts; entering nothing for all of them will result in:
 - No market will be listed as recognized.
 """
 
-#NODE_URL = "http://0.0.0.0:8080/v1"
-#FAUCET_URL = "http://0.0.0.0:8081"
+# NODE_URL = "http://0.0.0.0:8080/v1"
+# FAUCET_URL = "http://0.0.0.0:8081"
 U64_MAX = (2**64) - 1
 COIN_TYPE_APT = "0x1::aptos_coin::AptosCoin"
 MIN_SIZE = 500
@@ -569,7 +569,7 @@ def setup_market(faucet_client: FaucetClient, viewer: EconiaViewer) -> int:
 
 
 def get_best_prices(market_id: int
-) -> Tuple[Optional[int], Optional[int]]:
+                    ) -> Tuple[Optional[int], Optional[int]]:
     price_levels = get_price_levels(viewer, market_id)
 
     price_bid = None
@@ -720,3 +720,17 @@ def dump_txns():
         txn_hash_buffer = []
     else:
         print("  * No transactions were executed.")
+
+
+def get_price_and_size_of_all_orders(market_id: int):
+    price_levels = get_price_levels(viewer, market_id)
+    bid_orders = []
+    ask_orders = []
+
+    for bid in price_levels["bids"]:
+        bid_orders.append((bid["price"], bid["size"]))
+
+    for ask in price_levels["asks"]:
+        ask_orders.append((ask["price"], ask["size"]))
+
+    return bid_orders, ask_orders
