@@ -6,12 +6,14 @@ import Trade from "./Pages/Trade/Trade";
 import Portfolio from "./Pages/Portfolio/Portfolio";
 import Earn from "./Pages/Earn";
 import History from "./Pages/History";
+import Home from "./Pages/Home";
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/market" element={<Market />} />
           <Route path="/trade" element={<Trade />} />
           <Route path="/earn" element={<Earn />} />

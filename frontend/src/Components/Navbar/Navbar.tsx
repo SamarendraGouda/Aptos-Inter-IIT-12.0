@@ -41,6 +41,9 @@ const Navbar = () => {
     <div className={styles.navbar}>
       <div className={styles.navListLeft}>
         <div className={styles.navItem}>
+          <Link to="/">Home</Link>
+        </div>
+        <div className={styles.navItem}>
           <Link to="/market">Market</Link>
         </div>
         <div className={styles.navItem}>

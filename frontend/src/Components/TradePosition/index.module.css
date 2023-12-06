@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   width: inherit;
+  margin-top: 24px;
 }
 
 .tabs {
@@ -101,7 +102,7 @@
   width: 100%;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .closePositionButton {

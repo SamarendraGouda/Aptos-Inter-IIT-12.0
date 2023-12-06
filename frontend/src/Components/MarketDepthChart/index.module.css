@@ -3,7 +3,7 @@
   width: 280px;
   padding: 24px 24px;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   gap: 12px;
   background: #16182e;
@@ -84,4 +84,48 @@
   font-weight: 500;
   opacity: 0.7;
   padding: 16px;
+}
+
+.chartRowItemPrice {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.chartRowItemAmount {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.chartRowItemSize {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.currentPriceBid {
+  color: var(--text-positive, #0ecc83);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.currentPriceAsk {
+  color: var(--text-negative, #f15454);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

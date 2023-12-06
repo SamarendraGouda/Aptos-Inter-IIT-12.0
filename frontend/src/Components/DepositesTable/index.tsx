@@ -25,11 +25,11 @@ interface DataType {
   price: string;
   type: Types;
   status: Status;
-  high_24h: string;
-  low_24h: string;
-  volume_24h: string;
-  openInterest: string;
 }
+
+type DepositsTableProps = {
+  data: DataType[]; // Assuming DataType is the type for the data array
+};
 
 const USDC_LOGO =
   "https://s2.coinmarketcap.com/static/img/coins/64x64/3408.png";
@@ -39,14 +39,14 @@ const APT_LOGO =
 const columns: ColumnsType<DataType> = [
   {
     title: "Timestamp",
-    dataIndex: "time",
+    dataIndex: "timestamp",
   },
   {
     title: "Token",
-    dataIndex: "name",
+    dataIndex: "coin",
     render: (text, record) => (
       <div className={styles.tableItem}>
-        <img src={record.logo} alt={record.name} />
+        <img src={text === "USDC" ? USDC_LOGO : APT_LOGO} alt={record.name} />
         <span>{text}</span>
       </div>
     ),
@@ -55,17 +55,17 @@ const columns: ColumnsType<DataType> = [
     title: "Amount",
     dataIndex: "amount",
   },
-  {
-    title: "Transaction Status",
-    dataIndex: "status",
-    render: (text, record) => (
-      <div
-        className={text === Status.SUCCESS ? styles.sideLong : styles.sideShort}
-      >
-        <span>{text}</span>
-      </div>
-    ),
-  },
+  // {
+  //   title: "Transaction Status",
+  //   dataIndex: "status",
+  //   render: (text, record) => (
+  //     <div
+  //       className={text === Status.SUCCESS ? styles.sideLong : styles.sideShort}
+  //     >
+  //       <span>{text}</span>
+  //     </div>
+  //   ),
+  // },
   {
     title: "Explorer",
     dataIndex: "time",
@@ -78,99 +78,6 @@ const columns: ColumnsType<DataType> = [
   },
 ];
 
-const data = [
-  {
-    key: "1",
-    time: "2021-04-01 12:00:00",
-    logo: USDC_LOGO,
-    name: "USDC",
-    price: "2058.8",
-    amount: 200,
-    type: Types.MARKET,
-    status: Status.SUCCESS,
-    change_24h: "+3.27%",
-    high_24h: "2059.0",
-    low_24h: "2058.8",
-    volume_24h: "$1.80M",
-    openInterest: "$179.0M",
-  },
-  {
-    key: "2",
-    time: "2021-04-01 12:00:00",
-    logo: APT_LOGO,
-    name: "APT",
-    price: "2058.8",
-    amount: 200,
-    type: Types.MARKET,
-    status: Status.SUCCESS,
-    change_24h: "-3.27%",
-    high_24h: "2059.0",
-    low_24h: "2058.8",
-    volume_24h: "$1.80M",
-    openInterest: "$179.0M",
-  },
-  {
-    key: "3",
-    time: "2021-04-01 12:00:00",
-    logo: USDC_LOGO,
-    name: "USDC",
-    price: "2058.8",
-    amount: 200,
-    type: Types.MARKET,
-    status: Status.SUCCESS,
-    change_24h: "+3.27%",
-    high_24h: "2059.0",
-    low_24h: "2058.8",
-    volume_24h: "$1.80M",
-    openInterest: "$179.0M",
-  },
-  {
-    key: "1",
-    time: "2021-04-01 12:00:00",
-    logo: USDC_LOGO,
-    name: "USDC",
-    price: "2058.8",
-    amount: 200,
-    type: Types.MARKET,
-    status: Status.FAILED,
-    change_24h: "+3.27%",
-    high_24h: "2059.0",
-    low_24h: "2058.8",
-    volume_24h: "$1.80M",
-    openInterest: "$179.0M",
-  },
-  {
-    key: "2",
-    time: "2021-04-01 12:00:00",
-    logo: APT_LOGO,
-    name: "APT",
-    price: "2058.8",
-    amount: 200,
-    type: Types.MARKET,
-    status: Status.SUCCESS,
-    change_24h: "-3.27%",
-    high_24h: "2059.0",
-    low_24h: "2058.8",
-    volume_24h: "$1.80M",
-    openInterest: "$179.0M",
-  },
-  {
-    key: "3",
-    time: "2021-04-01 12:00:00",
-    logo: USDC_LOGO,
-    name: "USDC",
-    price: "2058.8",
-    amount: 200,
-    type: Types.MARKET,
-    status: Status.SUCCESS,
-    change_24h: "+3.27%",
-    high_24h: "2059.0",
-    low_24h: "2058.8",
-    volume_24h: "$1.80M",
-    openInterest: "$179.0M",
-  },
-];
-
 const onChange: TableProps<DataType>["onChange"] = (
   pagination,
   filters,
@@ -180,7 +87,7 @@ const onChange: TableProps<DataType>["onChange"] = (
   console.log("params", pagination, filters, sorter, extra);
 };
 
-const DepositsTable: React.FC = () => (
+const DepositsTable: React.FC<DepositsTableProps> = ({ data }) => (
   <Table
     columns={columns}
     dataSource={data}
