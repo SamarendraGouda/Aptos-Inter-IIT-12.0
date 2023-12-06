@@ -16,7 +16,7 @@ const PRICE_URL = "https://api.binance.com/api/v3/ticker/price?symbol=APTUSDT";
 
 //@ts-ignore
 const BalanceCard = ({ balance }) => {
-  const [balanceUsd, setBalanceUsd] = React.useState<any>();
+  const [balanceUsd, setBalanceUsd] = React.useState<any>(0);
   useEffect(() => {
     const interval = setInterval(() => {
       axios.get(PRICE_URL).then((response) => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./TradeLayout.module.css";
 
 import TradeHeader from "../../Components/TradeHeader/TradeHeader";
@@ -8,34 +8,43 @@ import MarketDepthChart from "../../Components/MarketDepthChart";
 import TradePosition from "../../Components/TradePosition";
 
 const TradeLayout = () => {
-  const data = [
-    ["Day", "", "", "", ""],
-    ["Mon", 20, 28, 38, 45],
-    ["Tue", 31, 38, 55, 66],
-    ["Wed", 50, 55, 77, 80],
-    ["Thu", 77, 77, 66, 50],
-    ["Fri", 68, 66, 22, 15],
-    ["Mon", 20, 28, 38, 45],
-    ["Tue", 31, 38, 55, 66],
-    ["Wed", 50, 55, 77, 80],
-    ["Thu", 77, 77, 66, 50],
-    ["Fri", 68, 66, 22, 15],
-    ["Mon", 20, 28, 38, 45],
-    ["Tue", 31, 38, 55, 66],
-    ["Wed", 50, 55, 77, 80],
-    ["Thu", 77, 77, 66, 50],
-    ["Fri", 68, 66, 22, 15],
-    ["Mon", 20, 28, 38, 45],
-    ["Tue", 31, 38, 55, 66],
-    ["Wed", 50, 55, 77, 80],
-    ["Thu", 77, 77, 66, 50],
-    ["Fri", 68, 66, 22, 15],
-    ["Mon", 20, 28, 38, 45],
-    ["Tue", 31, 38, 55, 66],
-    ["Wed", 50, 55, 77, 80],
-    ["Thu", 77, 77, 66, 50],
-    ["Fri", 68, 66, 22, 15],
-  ];
+  const priceSocketRef = useRef<WebSocket | null>(null);
+  const [bidPrice, setBidPrice] = useState(0);
+  const [askPrice, setAskPrice] = useState(0);
+  const wsEndPoint = "ws://10.81.53.207/backend/ws/price/";
+
+  useEffect(() => {
+    // Connect to the WebSocket server
+    priceSocketRef.current = new WebSocket(wsEndPoint);
+
+    // Event listener for when the connection is open
+    priceSocketRef.current.onopen = (event: Event) => {
+      console.log("WebSocket connection opened:", event);
+    };
+
+    // Event listener for when a message is received from the server
+    priceSocketRef.current.onmessage = (event: MessageEvent) => {
+      const data = JSON.parse(event.data);
+      setBidPrice(data.price_bid);
+      setAskPrice(data.price_ask);
+    };
+
+    // Event listener for any errors that occur
+    priceSocketRef.current.onerror = (event: Event) => {
+      console.error("WebSocket error:", event);
+    };
+
+    // Event listener for when the connection is closed
+    priceSocketRef.current.onclose = (event: CloseEvent) => {
+      console.log("WebSocket connection closed:", event);
+    };
+
+    // Clean up the WebSocket connection when the component unmounts
+
+    return () => {
+      priceSocketRef.current?.close();
+    };
+  });
 
   return (
     <div className={styles.container}>
@@ -43,12 +52,12 @@ const TradeLayout = () => {
         <div className={styles.sectionLeft}>
           <div className={styles.subLeft}>
             <div className={styles.charts}>
-              <TradeHeader />
+              <TradeHeader bidPrice={bidPrice} askPrice={askPrice} />
               <div className={styles.subChart}>
-                <CandleStickChart data={data} />
+                <CandleStickChart />
               </div>
             </div>
-            <MarketDepthChart />
+            <MarketDepthChart bidPrice={bidPrice} askPrice={askPrice} />
           </div>
           <div className={styles.positions}>
             <TradePosition />

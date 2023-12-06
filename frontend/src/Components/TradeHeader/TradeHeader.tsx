@@ -1,17 +1,29 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styles from "./TradeHeader.module.css";
 
-const TradeHeader = () => {
-  const BITCOIN_LOGO =
-    "https://s2.coinmarketcap.com/static/img/coins/64x64/1.png";
+//@ts-ignore
+const TradeHeader = ({ bidPrice, askPrice }) => {
+  const APT_LOGO =
+    "https://s2.coinmarketcap.com/static/img/coins/64x64/21794.png";
+  //@ts-ignore
+  const calcMarketPrice = (bid, ask) => {
+    if (bid === null) {
+      return ask;
+    } else if (ask === null) {
+      return bid;
+    } else {
+      return (bid + ask) / 2;
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.title}>
-        <img src={BITCOIN_LOGO} alt="logo" />
-        BTC / USDC
+        <img src={APT_LOGO} alt="logo" />
+        APT / USDC
       </div>
       <div className={styles.price}>
-        <p>$38,000</p>
+        <p>${calcMarketPrice(bidPrice, askPrice)}</p>
       </div>
       <div className={styles.change}>
         <p>24H Change</p>

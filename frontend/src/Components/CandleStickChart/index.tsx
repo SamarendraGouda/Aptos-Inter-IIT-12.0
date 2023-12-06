@@ -1,67 +1,93 @@
-import Chart, { ChartWrapperOptions } from "react-google-charts";
-import styles from "./index.module.css";
-import { useEffect, useRef } from "react";
+import { createChart, ColorType } from "lightweight-charts";
+import React, { useEffect, useRef } from "react";
 
-interface CloudStickChartProps {
-  data: Array<Array<number | string>>;
-}
+//@ts-ignore
+export const ChartComponent = (props) => {
+  const {
+    data,
+    colors: {
+      textColor = "#ffffff",
+      backgroundColor = "#16182E",
+      upColor = "#0ECC83",
+      downColor = "#FA3C58",
+      borderVisible = false,
+      wickUpColor = "#26a69a",
+      wickDownColor = "#ef5350",
+    } = {},
+  } = props;
 
-const CandleStickChart: React.FC<CloudStickChartProps> = (
-  props: CloudStickChartProps
-) => {
-  const { data } = props;
-  const chartRef = useRef<HTMLElement>(null);
+  const chartContainerRef = useRef();
 
-  // useEffect(() => {
-  //   // const fallingCandles = chartRef?.current?.q(
-  //   //   'rect[fill="#a52714"]'
-  //   // );
-  //   const fallingCandles = chartRef.current?.querySelectorAll(
-  //     'rect[fill="#FB3D58"]'
-  //   );
-  //   console.log(fallingCandles);
-  //   // fallingCandles.forEach(function (e) {
-  //   //   e.previousSibling.style.fill = "#a52714";
-  //   // });
-  //   // const risingCandles = chartElement.querySelectorAll('rect[fill="#0f9d58"]');
-  //   // risingCandles.forEach(function (e) {
-  //   //   e.previousSibling.style.fill = "#0f9d58";
-  //   // });
-  // }, [chartRef, chartRef.current]);
+  useEffect(() => {
+    if (!chartContainerRef.current) return;
+    const handleResize = () => {
+      //@ts-ignore
+      chart.applyOptions({ width: chartContainerRef.current.clientWidth });
+    };
 
-  const options: ChartWrapperOptions["options"] = {
-    legend: "none",
-    backgroundColor: "#191b35",
-    candlestick: {
-      fallingColor: {
-        strokeWidth: 2,
-        fill: "#FB3D58",
-        stroke: "#FB3D58",
+    const chart = createChart(chartContainerRef.current, {
+      layout: {
+        background: { type: ColorType.Solid, color: backgroundColor },
+        textColor,
       },
-      risingColor: {
-        strokeWidth: 2,
-        fill: "#0FCD83",
-        stroke: "#0FCD83",
+      //@ts-ignore
+      width: 840,
+      height: 400,
+      grid: {
+        vertLines: {
+          color: "#363c4e",
+        },
+        horzLines: {
+          color: "#363c4e",
+        },
       },
-    },
-    vAxis: {
-      gridlines: {
-        color: "#282B46",
-      },
-    },
-  };
+    });
+    chart.timeScale().fitContent();
 
-  return (
-    <div className={styles.container}>
-      <Chart
-        // ref={chartRef}
-        chartType="CandlestickChart"
-        width="100%"
-        data={data}
-        options={options}
-      />
-    </div>
-  );
+    const newSeries = chart.addCandlestickSeries({
+      upColor,
+      downColor,
+      borderVisible,
+      wickUpColor,
+      wickDownColor,
+    });
+    newSeries.setData(data);
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+
+      chart.remove();
+    };
+  }, [
+    data,
+    backgroundColor,
+    textColor,
+    upColor,
+    downColor,
+    borderVisible,
+    wickUpColor,
+    wickDownColor,
+  ]);
+  //@ts-ignore
+  return <div ref={chartContainerRef} />;
 };
 
-export default CandleStickChart;
+const data = [
+  { open: 10, high: 10.63, low: 9.49, close: 9.55, time: 1642427876 },
+  { open: 9.55, high: 10.3, low: 9.42, close: 9.94, time: 1642514276 },
+  { open: 9.94, high: 10.17, low: 9.92, close: 9.78, time: 1642600676 },
+  { open: 9.78, high: 10.59, low: 9.18, close: 9.51, time: 1642687076 },
+  { open: 9.51, high: 10.46, low: 9.1, close: 10.17, time: 1642773476 },
+  { open: 10.17, high: 10.96, low: 10.16, close: 10.47, time: 1642859876 },
+  { open: 10.47, high: 11.39, low: 10.4, close: 10.81, time: 1642946276 },
+  { open: 10.81, high: 11.6, low: 10.3, close: 10.75, time: 1643032676 },
+  { open: 10.75, high: 11.6, low: 10.49, close: 10.93, time: 1643119076 },
+  { open: 10.93, high: 11.53, low: 10.76, close: 10.96, time: 1643205476 },
+];
+
+//@ts-ignore
+export default function CandleStickChart(props) {
+  return <ChartComponent {...props} data={data}></ChartComponent>;
+}
