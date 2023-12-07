@@ -42,7 +42,7 @@ Mints test tokens to check the functioning of the Market
 
 ## Architecture 
 
-<img src="" alt="ARCHI" >
+<img src="./assets/2.png" alt="ARCHI" >
 
 
 ## Security
