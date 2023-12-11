@@ -3,8 +3,8 @@
 ### Market Page
 <img src="./../assets/11.jpg" height="400" width="200">
 ### Portfolio Page
-![market_page](./../assets/10.jpg)
+<img src="./../assets/10.jpg" height="400" width="200">
 ### Trading Page
-![market_page](./../assets/8.jpg)
+<img src="./../assets/8.jpg" height="400" width="200">
 ### Placing Order
-![market_page](./../assets/9.jpg)
+<img src="./../assets/9.jpg" height="400" width="200">
