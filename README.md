@@ -1,5 +1,5 @@
 # Zero Day Futures Contracts Trading Platform
-ZeroDayFutures  is a first of a kind Zero day Futures Contract trading platform on Aptos blockchain, which allows the user to buy or sell positions on a zero day Futures Contract . 
+ZDayFutures  is a first of a kind Zero day Futures Contract trading platform on Aptos blockchain, which allows the user to buy or sell positions on a zero day Futures Contract . 
 
 ### Table of Content
 * Context
@@ -24,11 +24,11 @@ Zero day futures refer to the futures contract where parties speculate the occur
 
 ## Features 
 
-0dte Futures utilises the Block-STM technology to take care of very high Transactions per Second during peak hours while maintaining reliability and security of assets.
+ZdayFutures utilises the Block-STM technology to take care of very high Transactions per Second during peak hours while maintaining reliability and security of assets.
 
 Using Econia's Finance Engine , orders are stored in a efficient manner and provides low latency order executions while settlement .
 
-0dte Futures is deployed on website as well as has a mobile app on both ios and android to reach larger audience.
+ZdayFutures is deployed on website as well as has a mobile app on both ios and android to reach larger audience.
 
 User friendly interface and easy to understand design makes it easier to use.
 
