@@ -1,7 +1,7 @@
 ## Zero Day to Expiry Futures: Mobile App
 
 ### Market Page
-![market_page](./../assets/11.jpg)
+<img src="./../assets/11.jpg" height="90px" width="120px">
 ### Portfolio Page
 ![market_page](./../assets/10.jpg)
 ### Trading Page
