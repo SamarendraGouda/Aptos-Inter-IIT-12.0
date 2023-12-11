@@ -1,19 +1,19 @@
 # Zero Day Futures Contracts Trading Platform
-ZDayFutures  is a first of a kind Zero day Futures Contract trading platform on Aptos blockchain, which allows the user to buy or sell positions on a zero day Futures Contract . 
+Z-DayFutures  is a first of a kind Zero day Futures Contract trading platform on Aptos blockchain, which allows the user to buy or sell positions on a zero day Futures Contract . 
 
 ### Table of Content
-* Context
-* Features
-* Technical Specifications
-* Architecture
-* Security
-* API Docs
-* Tech Stack
-* Whitepaper
-* Future Scope
+* [Context](#context)
+* [Features](#features)
+* [Technical Specifications](#techspecs)
+* [Architecture](#architecture)
+* [Security](#security)
+* [API Docs](#apidocs)
+* [Tech Stack](#techstack)
+* [Whitepaper](#whitepaper)
+* [Future Scope](#futurescope)
 
 ## Context
-
+<a name="context"></a>
 ### What are futures ?
 Futures are financial contracts where parties agree to buy or sell an asset (like commodities, currencies, stocks, or indices) at a predetermined price on a specified future date. These contracts enable investors to speculate on the future price of the underlying asset
 
@@ -23,17 +23,17 @@ Zero day futures refer to the futures contract where parties speculate the occur
 
 
 ## Features 
-
-ZdayFutures utilises the Block-STM technology to take care of very high Transactions per Second during peak hours while maintaining reliability and security of assets.
+<a name="features"></a>
+Z-dayFutures utilises the Block-STM technology to take care of very high Transactions per Second during peak hours while maintaining reliability and security of assets.
 
 Using Econia's Finance Engine , orders are stored in a efficient manner and provides low latency order executions while settlement .
 
-ZdayFutures is deployed on website as well as has a mobile app on both ios and android to reach larger audience.
+Z-dayFutures is deployed on website as well as has a mobile app on both ios and android to reach larger audience.
 
 User friendly interface and easy to understand design makes it easier to use.
 
 ## Technical Specifications
-
+<a name="techspecs"></a>
 
 #### Smart Contracts
 
@@ -52,12 +52,12 @@ Mints test tokens to check the functioning of the Market
 
 
 ## Architecture 
-
+<a name="architecture"></a>
 <img src="./assets/2.png" alt="ARCHI" >
 
 
 ## Security
-
+<a name="security"></a>
 Resource centric model of move helps in preventing the accidental loss of funds.
 
 Econia pool and Trading Wallet have their own reserves and are deployed as smart contracts providing non-custodial asset handling.
@@ -65,8 +65,10 @@ Econia pool and Trading Wallet have their own reserves and are deployed as smart
 Immediate and low latency transfer of funds after the 24 hr mark minimises the loss of funds via slippage due to market fluctuations.
 
 ## API Docs
+<a name="apidocs"></a>
 
 ## Tech Stack
+<a name="techstack"></a>
 
 <div style="display: flex;">
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Python.svg/2048px-Python.svg.png"  alt="Description 1" style="width: 10%; margin-right: 15px">
@@ -77,11 +79,14 @@ Immediate and low latency transfer of funds after the 24 hr mark minimises the l
 </div>
 
 ## Whitepaper
+<a name="whitepaper"></a>
+
 [ZDayFutures Whitepaper](https://pdfhost.io/v/nMkDjCl5D_whitepaper_1)
 
 ## Future Scope
+<a name="futurescope"></a>
 
-0dte Futures has an option to also trade n-day futures with slight changes to the smart contract.
+Z-dayFutures has an option to also trade n-day futures with slight changes to the smart contract.
 
 More Complex Liquidity providing pools for more lucrative fee for Liquidity providers and 
 
